@@ -1,0 +1,29 @@
+﻿@using BabyInABagServer.Models
+@model Order
+
+@{
+    ViewBag.Title = "CurrentOrder";
+
+}
+
+<h2>Current Order Details</h2>
+
+
+<b>@Html.DisplayNameFor(model => model.Order_Id)</b>: @Html.DisplayFor(model => model.Order_Id)
+<br />
+<b>@Html.DisplayNameFor(model => model.Order_Status)</b>:@Html.DisplayFor(model => model.Order_Status)
+<br />
+<table class="table">
+
+    @foreach (Product p in Model.Products)
+    {
+        <tr>
+            <td>@p.Product_Name</td>
+            <td>$@p.Product_Price</td>
+            <td>Description: @p.Product_Description</td>
+        </tr>
+
+    }
+</table>
+@Html.ActionLink("Edit this Order", "CustomerOrder", new { Id = Model.Order_Id }) |
+@Html.ActionLink("Customer List", "Index")

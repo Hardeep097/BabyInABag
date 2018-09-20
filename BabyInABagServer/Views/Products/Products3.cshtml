@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Products3";
+}
+
+<!-- Contact Section -->
+<div class="w3-container w3-padding-32" id="contact">
+    <h1 class="w3-border-bottom w3-border-light-grey w3-padding-16">Blanket Bag with hook</h1>
+
+</div>
+
+<div class="w3-row">
+    <div class="w3-col w3-container m6 l5">
+        <img id="image1" src="~/images/bluewhiteb.jpg" alt="Blue Blanket">
+    </div>
+
+    <div class="w3-col w3-container m6 l7">
+        <h2>Blanket Bag with hook</h2>
+        <p>This Blanket bag is very comfortable and designed in strip-cross pattern.This version comes with proper hook that keeps you baby safe.</p>
+        <h4 id="cprice">$65</h4>
+        <h6>Was <span id="oldprice">$69.99</span></h6>
+        <div class="dropdown">
+            <button class="dropbtn">Quantity </button>
+            <div class="dropdown-content">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+            </div>
+        </div>
+        <br>
+        <div>
+            <h4>color</h4>
+            <div>
+                <span style="font-size:40px; padding-left:35px; background:gray;">&nbsp;</span>
+                <span style="font-size:40px; padding-left:35px; background:pink;">&nbsp;</span>
+                <span style="font-size:40px; padding-left:35px; background:Aqua;">&nbsp;</span>
+                <span style="font-size:40px; padding-left:35px; background:Magenta;">&nbsp;</span>
+            </div>
+            <h4>Knitting Pattern</h4>
+            <div style="">
+                <form action="">
+                    <input type="radio" name="gender" value="male">Alder<br>
+                    <input type="radio" name="gender" value="female"> Popcorn<br>
+                    <input type="radio" name="gender" value="other"> Slip Stitch<br><br>
+                    <textarea placeholder="Additional requirments"></textarea>
+                </form>
+                <br>
+                <button class="clear">clear</button>
+            </div>
+        </div>
+        <br>
+        <button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>
+    </div>
+
+</div>
+

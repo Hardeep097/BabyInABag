@@ -1,0 +1,59 @@
+﻿@using BabyInABagServer.Models.VMs
+@model CustomerAdminLogin
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div align="center" style="width:30%;margin: 0 auto;">
+    <div id="logo" style="width: 158px; height: 120px;">
+        <img src="~/images/logo.jpg" style="width: 158px; height: 120px;">
+    </div>
+    <h2 style="padding:0px 0px 0px 0px">Login</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EnteredUsername, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })<br />
+                    @Html.ValidationMessageFor(model => model.EnteredUsername, "", new { @class = "text-danger" })
+                </div>
+            </div><br />
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EnteredPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })<br />
+                    @Html.ValidationMessageFor(model => model.EnteredPassword, "", new { @class = "text-danger" })
+                </div>
+            </div><br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Login" class="w3-black w3-padding" />
+                </div>
+            </div>
+        </div><br />
+    }
+
+    <div><p id="loginResponse">@ViewBag.LoginResponse</p></div>
+
+    <div>
+        @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")
+    </div>
+
+    <div><hr style="height:1px;border:none;color:#333;background-color:#333;"></div>
+
+    <div>
+        @Html.ActionLink("Create Account", "Create", "Customers", new object { }, new { @class = "w3-black w3-padding" })
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

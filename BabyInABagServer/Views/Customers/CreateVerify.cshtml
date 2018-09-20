@@ -1,0 +1,44 @@
+﻿@using BabyInABagServer.Models.VMs
+@model CustomerAdminVerify
+
+@{
+    ViewBag.Title = "CreateVerify";
+}
+
+<div align="center" style="width:30%;margin: 0 auto;">
+    <div id="logo" style="width: 158px; height: 120px;">
+        <img src="~/images/logo.jpg" style="width: 158px; height: 120px;">
+    </div>
+    <h2 style="padding:0px 0px 0px 0px">Account Verification</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Verify, new { htmlAttributes = new { @class = "form-control", placeholder = "4-Digit Verificaiton Number" } })
+                    @Html.ValidationMessageFor(model => model.Verify, "", new { @class = "text-danger" })
+                </div>
+            </div><br />
+
+                  <div class="form-group">
+                      <div class="col-md-offset-2 col-md-10">
+                          @Html.ActionLink("Submit", "Index", "Home", new object { }, new { @class = "w3-black w3-padding", style = "text-decoration:none;" })
+                      </div>
+                  </div>
+        </div>
+    }
+
+    <div><hr style="height:1px;border:none;color:#333;background-color:#333;"></div>
+
+    <div><p id="loginResponse">@ViewBag.CreateVerifyResponse</p></div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

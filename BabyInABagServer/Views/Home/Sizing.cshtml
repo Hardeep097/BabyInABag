@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Sizing";
+}
+
+<style>
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: rgb(128,128,128);
+            color: white;
+        }
+</style>
+
+    <!-- Sizing Section -->
+    <div class="w3-container w3-padding-32">
+        <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Sizing</h2>
+    </div>
+
+    <div style="width:80%; margin-left: 10%">
+        <table id="customers">
+            <tr>
+                <th>Size</th>
+                <th>Approximate Child Age</th>
+                <th>Minimum Child Weight</th>
+                <th>Maximum Child Length</th>
+            </tr>
+            <tr>
+                <td>Small (27"/68cm)</td>
+                <td>3 - 11 Months</td>
+                <td>10 Lbs</td>
+                <td>30" / 76 cm</td>
+            </tr>
+            <tr>
+                <td>Medium (35"/89cm)</td>
+                <td>10 -24 Months</td>
+                <td>22 Lbs</td>
+                <td>38" /96 cm</td>
+            </tr>
+            <tr>
+                <td>Large (42"/107cm)</td>
+                <td>22 Months - 3 Years</td>
+                <td>28 Lbs</td>
+                <td>45" / 114 cm</td>
+            </tr>
+
+
+        </table>
+    </div>
+

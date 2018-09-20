@@ -1,0 +1,88 @@
+﻿@using BabyInABagServer.Models.VMs
+@model CustomerAdminSignup
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div align="center" style="width:30%;margin: 0 auto;">
+    <div id="logo" style="width: 158px; height: 120px;">
+        <img src="~/images/logo.jpg" style="width: 158px; height: 120px;">
+    </div>
+    <h2 style="padding:0px 0px 0px 0px">Account Registration</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })<br />
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", type = "email" } })<br />
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })<br />
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })<br />
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })<br />
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password" } })<br />
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Captcha, new { htmlAttributes = new { @class = "form-control", placeholder = "Captcha" } })<br />
+                @Html.ValidationMessageFor(model => model.Captcha, "", new { @class = "text-danger" })
+            </div>
+        </div><br />
+
+        <div id="logo" style="width: 288px; height: 60px;">
+            <img src="~/images/captcha.png" style="width: 258px; height: 80px;">
+        </div><br />
+
+        <div><input type="checkbox" name="Agree" value="Agree" required>I agree to terms and conditions by creating this account.</div><br>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Submit", "CreateVerify", "Customers", new object { }, new { @class = "w3-black w3-padding" })
+            </div>
+        </div>
+    </div>
+    }
+
+    <div><p id="loginResponse">@ViewBag.CreatewResponse</p></div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
