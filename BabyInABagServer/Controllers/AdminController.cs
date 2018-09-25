@@ -36,13 +36,29 @@ namespace BabyInABagServer.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddProduct(Product product)
+        public ActionResult AddProduct(Product product, FormCollection frm)
         {
+            String categoryChoice = frm["choice"].ToString();
+            
+            if (categoryChoice.Equals("Create new"))
+            {
+
+                ProductCategory product_category = new ProductCategory();
+                product_category.Product_Category = frm["Product_Category_new"].ToString();
+                
+                    db.ProductCategories.Add(product_category);
+                    db.SaveChanges();
+
+                    TempData["category_id"] = product_category.Product_Category_Id;
+                
+            }
+            //getting product category
             var categories = db.ProductCategories.ToList();
+
             string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
             string extension = Path.GetExtension(product.ImageFile.FileName);
 
-            if(extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+            if(extension.Equals(".jpg",StringComparison.OrdinalIgnoreCase) || extension.Equals(".png",  StringComparison.OrdinalIgnoreCase) || extension.Equals(".jpeg", StringComparison.OrdinalIgnoreCase))
             { 
             fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
             product.Product_Image = "/images/" + fileName;
@@ -50,6 +66,11 @@ namespace BabyInABagServer.Controllers
             product.ImageFile.SaveAs(fileName);
             product.Active = true;
             product.Size = "Standard";
+
+                if (TempData["category_id"] != null)
+                {
+                    product.Product_Category_Id = (int)TempData["category_id"];
+                }
            
                 using (db)
                 {
