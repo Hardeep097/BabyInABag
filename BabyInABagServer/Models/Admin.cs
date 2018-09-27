@@ -8,6 +8,7 @@ namespace BabyInABagServer.Models
 {
     public class Admin
     {
+        //Admin Model
         [Key]
         public int Admin_Id { get; set; }
         public string First_Name { get; set; }
