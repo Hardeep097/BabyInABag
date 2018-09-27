@@ -21,6 +21,8 @@ namespace BabyInABagServer.Controllers
 
         public ActionResult Accounts()
         {
+            //Comment to test GIT commit and PUSH
+
             return View();
         }
         
