@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using BabyInABagServer.Models.VMs;
 
 namespace BabyInABagServer.Controllers
 {
@@ -25,7 +26,35 @@ namespace BabyInABagServer.Controllers
 
             return View();
         }
-        
+
+        [HttpPost]
+        public ActionResult Accounts(Admin admin, FormCollection frm)
+        {
+            if (admin.Password.Equals(frm["psw-repeat"]))
+            {
+                Authenticator auth = new Authenticator();
+
+                admin.Salt = admin.Username;
+                admin.Password = auth.GenerateHash(admin.Username, admin.Password);
+                admin.Enabled = true;
+                
+
+                using (db)
+                {
+                    db.Admins.Add(admin);
+                    db.SaveChanges();
+                }
+
+            }
+            else
+            {
+                ModelState.Clear();
+                ViewBag.reply = "Passwords do not match";
+            }
+
+            return View();
+        }
+
         public ActionResult AddProduct()
         {
             var categories = db.ProductCategories.ToList();

@@ -1,4 +1,5 @@
-﻿
+﻿@using BabyInABagServer.Models
+@model Admin
 @{
     ViewBag.Title = "Accounts";
 }
@@ -57,27 +58,39 @@
         <!-- Panel -->
         <div class="main">
             <h2 id="admin-header-text" style="border-bottom-color: black">Account Management</h2>
-            <form class="modal-content" action="">
-                <div class="container" style=" text-align:center;font-size: 20px;">
-                    <hr>
+            <div class="container" style=" text-align:center;font-size: 20px;">
+                <hr>
+
+                @using (Html.BeginForm("Accounts", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Admin_Id)
+
                     <table class="w3-table w3-hoverable">
+
                         <tr>
                             <th style="text-align: center; width: 50%;">Create New Admin Account</th>
                             <th style="text-align: center; width: 50%;">Reset/Disable Account</th>
                         </tr>
-
                         <tr>
                             <td style="text-align: center; width: 50%;">
-                                <input style="padding:5px; font-family: oswald; border-radius: 4px; width: 80%;" type="text" placeholder="Enter Username" name="username">
+                                @Html.EditorFor(model => model.Full_Name, new { htmlAttributes = new { @class = "form-control", style = "padding:5px; font-family: oswald; border-radius: 4px; width: 80%;", type = "text", placeholder = "Enter Full Name" } })
+                                @Html.ValidationMessageFor(model => model.Full_Name, "", new { @class = "text-danger" })
                                 <br />
-                                <input style="padding:5px; font-family: oswald; border-radius: 4px; width: 80%;" type="password" placeholder="Enter Password" name="psw">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", style = "padding:5px; font-family: oswald; border-radius: 4px; width: 80%;", type = "text", placeholder = "Enter Username" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                <br />
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "padding:5px; font-family: oswald; border-radius: 4px; width: 80%;", type = "password", placeholder = "Enter Password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                 <br />
                                 <input style="padding:5px;font-family: oswald; border-radius: 4px; width: 80%;" type="password" placeholder="Re-enter Password" name="psw-repeat">
                                 <br />
                                 <br />
-                                <button style="width: 30%;font-family: oswald;" type="submit" class="signupbtn">Create</button>
-                            </td>
+                                <input style="width: 30%;font-family: oswald;" type="submit" class="signupbtn" value="Create">
+                                <br />
 
+                                @Html.ViewBag.reply
+                            </td>
 
                             <td style="text-align: center; width: 50%;">
                                 <input style="padding:5px; font-family: oswald; border-radius: 4px; width: 80%;" type="text" placeholder="Enter Username" name="username">
@@ -88,9 +101,11 @@
                             </td>
                         </tr>
                     </table>
+                }
 
-                </div>
-            </form>
+
+
+            </div>
             <br />
             <br />
             <br />

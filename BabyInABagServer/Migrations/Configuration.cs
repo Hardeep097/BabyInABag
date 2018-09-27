@@ -23,8 +23,7 @@ namespace BabyInABagServer.Migrations
 
             context.Admins.AddOrUpdate(
                 a => a.Admin_Id,
-                new Admin { Admin_Id = 1, First_Name = "Mathew", Middle_Name = "None", Last_Name = "Glinka", Username = "glinka", Password = "B1132C41BB7AED679775E29F1B419AE63A245099605511B0C6568AED9D682E9D", Salt = "glinka" },
-                new Admin { Admin_Id = 2, First_Name = "Ramon", Middle_Name = "None", Last_Name = "Mercader", Username = "mercader", Password = "", Salt = "bibs.mercader" }
+                new Admin { Admin_Id = 3, Full_Name = "Mathew Glinka", Username = "glinka", Password = "B1132C41BB7AED679775E29F1B419AE63A245099605511B0C6568AED9D682E9D", Salt = "glinka", Enabled = true }
                 );
 
             context.Customers.AddOrUpdate(
