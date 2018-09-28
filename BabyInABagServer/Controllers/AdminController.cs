@@ -22,8 +22,6 @@ namespace BabyInABagServer.Controllers
 
         public ActionResult Accounts()
         {
-            //Comment to test GIT commit and PUSH - GRACE IS AWESOME
-
             return View();
         }
 
@@ -43,13 +41,15 @@ namespace BabyInABagServer.Controllers
                 {
                     db.Admins.Add(admin);
                     db.SaveChanges();
+                    ModelState.Clear();
+                    ViewBag.reply = "Account has been Created!";
                 }
 
             }
             else
             {
                 ModelState.Clear();
-                ViewBag.reply = "Passwords do not match";
+                ViewBag.reply = "Passwords do not match!";
             }
 
             return View();
