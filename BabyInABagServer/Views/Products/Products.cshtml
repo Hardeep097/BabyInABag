@@ -7,7 +7,8 @@
 
 <!-- product Section -->
 <div class="w3-container w3-padding-32" id="contact">
-    <button id="buttoncustomize">@Html.ActionLink("Create Custom Blanket", "Products1", "Products", null, new { style = "text-decoration:none; " })</button>
+    <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Products</h2>
+
     <div>
         @foreach (var item in Model)
         {
@@ -25,7 +26,7 @@
                             <!--<h6>Was <span id="oldprice">$70</span></h6>-->
                         </div>
 
-                        <button id="buttoncart">@Html.ActionLink("Add to Cart", "Products1", "Products", null, new { style = "text-decoration:none;" })</button>
+                        <button id="buttoncart">@Html.ActionLink("Customize", "Products1", "Products", null, new { style = "text-decoration:none;" })</button>
                     </div>
                 </div>
             </div>

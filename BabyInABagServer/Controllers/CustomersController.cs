@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BabyInABagServer.Models;
 using BabyInABagServer.Models.VMs;
+using BabyInABagServer.Models.Repos;
 using System.Web.Routing;
 using System.Web.Http.Description;
 using BabyInABagServer.Services;
@@ -48,19 +49,22 @@ namespace BabyInABagServer.Controllers
         // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ResponseType(typeof(Customer))]
-        //public ActionResult Create([Bind(Include = "Customer_Id,First_Name,Middle_Name,Last_Name,Customer_Phone,Customer_Email,Customer_Details,Username,Password")] Customer customer)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Customers.Add(customer);
-        //        db.SaveChanges();
-        //        return RedirectToAction("CreateVerify");
-        //    }
-        //    return View(customer);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ResponseType(typeof(CustomerAdminSignup))]
+        public ActionResult Create(CustomerAdminSignup cas)
+        {
+            if (ModelState.IsValid)
+            {
+                CustomerRepository cr = new CustomerRepository();
+                Customer customer = cr.GetCustomer(cas);
+
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                return RedirectToAction("CreateVerify");
+            }
+            return View();
+        }
 
         public ActionResult CreateVerify()
         {

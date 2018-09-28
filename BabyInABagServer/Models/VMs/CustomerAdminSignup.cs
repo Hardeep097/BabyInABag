@@ -10,6 +10,9 @@ namespace BabyInABagServer.Models.VMs
 {
     public class CustomerAdminSignup
     {
+        private Context db = new Context();
+        public Customer Customer{ get; set; }
+
         [Required]
         [DisplayName("Username")]
         public string Username { get; set; }
@@ -17,6 +20,10 @@ namespace BabyInABagServer.Models.VMs
         [Required]
         [DisplayName("Email")]
         public string Email { get; set; }
+
+        [Required]
+        [DisplayName("Phone Number")]
+        public string Phone { get; set; }
 
         [Required]
         [DisplayName("First Name")]

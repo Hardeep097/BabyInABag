@@ -28,8 +28,8 @@ namespace BabyInABagServer.Migrations
 
             context.Customers.AddOrUpdate(
                 c => c.Customer_Id,
-                new Customer { Customer_Id = 1, First_Name = "Hardeep", Middle_Name = "None", Last_Name = "Singh", Customer_Phone = "9876543234", Customer_Email = "Hardeep@gmail.com", Customer_Details = "None", Username = "hsingh", Password = "8D8191421DA7E3E10A3D43F5060E27FC91BB43501D915EBA88D99D57C25C7BAA", Salt = "hsingh" },
-                new Customer { Customer_Id = 2, First_Name = "Jordan", Middle_Name = "Patrick", Last_Name = "Grace", Customer_Phone = "6471172941", Customer_Email = "Grace@gmail.com", Customer_Details = "None", Username = "grace", Password = "BFA5F558D6520C49F781454D334E5782D14E35CBEAB4003EF843A3BFAA31442C", Salt = "grace" }
+                new Customer { Customer_Id = 1, First_Name = "Hardeep", Last_Name = "Singh", Customer_Phone = "9876543234", Customer_Email = "Hardeep@gmail.com", Username = "hsingh", Password = "8D8191421DA7E3E10A3D43F5060E27FC91BB43501D915EBA88D99D57C25C7BAA", Salt = "hsingh" },
+                new Customer { Customer_Id = 2, First_Name = "Jordan", Last_Name = "Grace", Customer_Phone = "6471172941", Customer_Email = "Grace@gmail.com", Username = "grace", Password = "BFA5F558D6520C49F781454D334E5782D14E35CBEAB4003EF843A3BFAA31442C", Salt = "grace" }
                 );
 
             context.Orders.AddOrUpdate(
