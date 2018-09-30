@@ -9,15 +9,17 @@ using System.Web.Mvc;
 using BabyInABagServer.Models;
 using BabyInABagServer.Services;
 using System.IO;
-
+using System.Collections;
+using BabyInABagServer.Models.VMs;
 
 namespace BabyInABagServer.Controllers
 {
     public class ProductsController : Controller
     {
         private Context db = new Context();
-        
-        
+        List<CartItem> cart = new List<CartItem>();
+
+
         // GET: Products
         public ActionResult Index()
         {
@@ -66,20 +68,9 @@ namespace BabyInABagServer.Controllers
         {
             return View(db.Products.ToList());
         }
-
-        public ActionResult Products1()
+        public ActionResult Customize()
         {
-            return View();
-        }
-
-        public ActionResult Products2()
-        {
-            return View();
-        }
-
-        public ActionResult Products3()
-        {
-            return View();
+                return View();
         }
 
         // GET: Products/Edit/5
@@ -189,6 +180,30 @@ namespace BabyInABagServer.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult AddToCart(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if(Session["username"] == null)
+            {
+                return RedirectToAction("Login","Login", null);
+            }
+            else
+            {
+                CartItem item = new CartItem((int)id);
+                cart.Add(item);
+                Session["cart"] = cart;
+
+            }
+          
+
+            return RedirectToAction("Products","Products",null);
         }
     }
 }

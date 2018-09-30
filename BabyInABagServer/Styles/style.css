@@ -27,6 +27,21 @@ span.field-validation-error {
     text-decoration: line-through;
 }
 
+#buttoncustomize {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 90%;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 30%;
+    /*     margin-left: 1%*/
+}
+
 
 #buttoncart{
     background-color: #4CAF50;
@@ -61,7 +76,7 @@ span.field-validation-error {
     background-color:blueviolet;
     color: white;
     padding: 16px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     cursor: pointer;
 }

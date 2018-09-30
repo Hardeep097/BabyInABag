@@ -30,11 +30,17 @@ namespace BabyInABagServer.Controllers
                 LoginRepository la = new LoginRepository();
                 string authResponse = la.LoginAuthenticate(cal);
 
+                string eusername = cal.EnteredUsername;
+
                 ViewBag.LoginResponse = authResponse;
+                
 
                 if (authResponse.Equals("Login Success"))
+                {
+                    Session["username"] = eusername;
                     return RedirectToAction("Index", "Home");
-                else if(authResponse.Equals("Admin Login Success"))
+                }
+                else if (authResponse.Equals("Admin Login Success"))
                     return RedirectToAction("Orders", "Admin");
                 else
                     return View();
@@ -45,6 +51,13 @@ namespace BabyInABagServer.Controllers
         public ActionResult ForgotPassword()
         {
             return View();
+        }
+
+        public ActionResult Signout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index","Home");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BabyInABagServer.Models.Repos
 {
     public class CustomerRepository
     {
-        public Customer GetCustomer (CustomerAdminSignup cas)
+        public Customer GetCustomer(CustomerAdminSignup cas)
         {
             Customer customer = new Customer();
             customer.First_Name = cas.FirstName;

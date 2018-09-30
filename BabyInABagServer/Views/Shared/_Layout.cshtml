@@ -56,9 +56,25 @@
 
             </div>
 
-            <div class="w3-right w3-hide-small" style="position:absolute;top:0;right:0;">
-                @Html.ActionLink("Login", "Login", "Login", new object { }, new { @class = "w3-bar-item w3-button" })
-                @Html.ActionLink("Cart", "Cart", "Cart", new object { }, new { @class = "w3-bar-item w3-button" })
+            <div class="w3-right w3-hide-small" style="position:absolute;top:0;right:2%;">
+                @if (Session["username"] != null)
+                {
+
+                    <div class="dropdown">
+                        <a>@Html.ActionLink(Session["username"].ToString(), "Login", "Login", new object { }, new { @class = "w3-bar-item w3-button" })</a>
+                        <div class="dropdown-content">
+                            <a>@Html.ActionLink("Sign Out", "Signout", "Login", null, new { style = "text-decoration:none;" })</a>
+                        </div>
+                    </div>
+                    <a>@Html.ActionLink("cart", "Cart", "Cart", new object { }, new { @class = "w3-bar-item w3-button" })</a>
+
+                }
+                else
+                {
+                    @Html.ActionLink("login", "Login", "Login", new object { }, new { @class = "w3-bar-item w3-button" })
+                    @Html.ActionLink("cart", "Cart", "Cart", new object { }, new { @class = "w3-bar-item w3-button" })
+                }
+
             </div>
 
         </div>
