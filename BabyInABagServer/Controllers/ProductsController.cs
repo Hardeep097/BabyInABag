@@ -196,9 +196,21 @@ namespace BabyInABagServer.Controllers
             }
             else
             {
-                CartItem item = new CartItem((int)id);
-                cart.Add(item);
-                Session["cart"] = cart;
+                if (TempData["cart"] == null)
+                {
+                    
+                    CartItem item = new CartItem((int)id);
+                    cart.Add(item);
+                    TempData["cart"] = cart;
+                    Session["cart"] = cart;
+                }
+                else
+                {
+                    CartItem item = new CartItem((int)id);
+                    cart = TempData["cart"] as List<CartItem>;
+                    cart.Add(item);
+                    Session["cart"] = cart;
+                }
 
             }
           
