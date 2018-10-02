@@ -1,5 +1,4 @@
-﻿@using BabyInABagServer.Models
-@model Product
+﻿
 @{
     ViewBag.Title = "Products1";
 }
@@ -11,58 +10,58 @@
 </div>
 
 <div class="w3-row">
-        <div class="w3-col w3-container m6 l5 ">
-            <img id="image1" src="@Url.Content(Model.Product_Image)">
-        </div>
-
-        <div class="w3-col w3-container m6 l7">
-            <h2>@Html.DisplayFor(model => model.Product_Name)</h2>
-            <p>This Blanket bag is very comfortable and designed in strip-cross pattern.This version comes with proper hook that keeps you baby safe.</p>
-
-            <h4 id="cprice">$60</h4>
-            <h6>Was <span id="oldprice">$70</span></h6>
-            <div class="dropdown">
-                <button class="dropbtn">Quantity </button>
-                <div class="dropdown-content">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                </div>
-            </div>
-            <br>
-            <div>
-                <h4>color</h4>
-                <div>
-                    <span style="font-size:40px; padding-left:35px; background:gray;">&nbsp;</span>
-                    <span style="font-size:40px; padding-left:35px; background:pink;">&nbsp;</span>
-                    <span style="font-size:40px; padding-left:35px; background:Aqua;">&nbsp;</span>
-                    <span style="font-size:40px; padding-left:35px; background:Magenta;">&nbsp;</span>
-                </div>
-                <h4>Knitting Pattern</h4>
-                <div style="">
-                    <form action="">
-                        <input type="radio" name="gender" value="male">Alder<br>
-                        <input type="radio" name="gender" value="female"> Popcorn<br>
-                        <input type="radio" name="gender" value="other"> Slip Stitch<br>
-                    </form>
-
-                </div>
-                <h4>Size</h4>
-                <div style="">
-                    <form action="">
-                        <input type="radio" name="gender" value="male">Small<br>
-                        <input type="radio" name="gender" value="female">Medium<br>
-                        <input type="radio" name="gender" value="other"> Large<br><br>
-                        <textarea placeholder="Additional requirments"></textarea>
-                    </form>
-                    <br>
-                </div>
-            </div>
-
-            <button class="clear">clear</button>
-            <br>
-            <button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>
-        </div>
-    }
+    <div class="w3-col w3-container m6 l5 ">
+        <img id="image1" src="~/images/blueb.jpg" alt="Blue Blanket">
     </div>
+
+    <div class="w3-col w3-container m6 l7">
+        <h2>Blue Blanket Bag</h2>
+        <p>This Blanket bag is very comfortable and designed in strip-cross pattern.This version comes with proper hook that keeps you baby safe.</p>
+
+        <h4 id="cprice">$60</h4>
+        <h6>Was <span id="oldprice">$70</span></h6>
+        <div class="dropdown">
+            <button class="dropbtn">Quantity </button>
+            <div class="dropdown-content">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+            </div>
+        </div>
+        <br>
+        <div>
+            <h4>color</h4>
+            <div>
+                <span style="font-size:40px; padding-left:35px; background:gray;">&nbsp;</span>
+                <span style="font-size:40px; padding-left:35px; background:pink;">&nbsp;</span>
+                <span style="font-size:40px; padding-left:35px; background:Aqua;">&nbsp;</span>
+                <span style="font-size:40px; padding-left:35px; background:Magenta;">&nbsp;</span>
+            </div>
+            <h4>Knitting Pattern</h4>
+            <div style="">
+                <form action="">
+                    <input type="radio" name="gender" value="male">Alder<br>
+                    <input type="radio" name="gender" value="female"> Popcorn<br>
+                    <input type="radio" name="gender" value="other"> Slip Stitch<br>
+                </form>
+
+            </div>
+            <h4>Size</h4>
+            <div style="">
+                <form action="">
+                    <input type="radio" name="gender" value="male">Small<br>
+                    <input type="radio" name="gender" value="female">Medium<br>
+                    <input type="radio" name="gender" value="other"> Large<br><br>
+                    <textarea placeholder="Additional requirments"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <button class="clear">clear</button>
+        <br>
+        <button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>
+    </div>
+
+</div>
 

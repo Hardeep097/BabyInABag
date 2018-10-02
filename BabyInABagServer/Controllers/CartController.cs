@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,13 +18,13 @@ namespace BabyInABagServer.Controllers
         // GET: Cart
         public ActionResult Cart()
         {
-            if(Session["cart"] == null)
+            if (Session["cart"] == null)
             {
                 ViewBag.empty = "Your cart is empty";
             }
             else
             {
-                List<CartItem> cart = (List<CartItem>)Session["cart"];
+                List<CartItem> currentCart = (List<CartItem>)Session["cart"];
                 List<Product> activeCart = new List<Product>();
                 List<Product> products = new List<Product>();
 
@@ -31,20 +32,33 @@ namespace BabyInABagServer.Controllers
 
                 for (int c = 0; c < products.Count; c++)
                 {
-                    for (int d = 0; d < cart.Count; d++)
+                    for (int d = 0; d < currentCart.Count; d++)
                     {
-                        if(products[c].Product_Id.Equals(cart[d].ProductID))
+                        if (products[c].Product_Id.Equals(currentCart[d].ProductID))
                         {
                             activeCart.Add(products[c]);
                         }
                     }
                 }
-
                 return View(activeCart);
-
             }
-
             return View();
+        }
+
+        public ActionResult RemoveFromCart(int? id)
+        {
+            List<CartItem> currentCart = (List<CartItem>)Session["cart"];
+            CartItem cartItem = new CartItem();
+            for(int i = 0; i < currentCart.Count; i++)
+            {
+                if (currentCart[i].ProductID == (int)id)
+                {
+                    cartItem = currentCart[i];
+                }
+            }
+            currentCart.Remove(cartItem);
+            Session["cart"] = currentCart;
+            return RedirectToAction("Cart", "Cart", null);
         }
     }
 }

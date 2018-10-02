@@ -13,9 +13,7 @@ namespace BabyInABagServer.Models
         public int Product_Category_Id { get; set; }
 
         public string Product_Category { get; set; }
-
         public string Default_Image { get; set; }
-
         public decimal Default_Price { get; set; }
 
         [NotMapped]

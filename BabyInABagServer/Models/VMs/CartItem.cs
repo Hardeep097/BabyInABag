@@ -13,5 +13,10 @@ namespace BabyInABagServer.Models.VMs
         {
             ProductID = id;
         }
+
+        public CartItem()
+        {
+
+        }
     }
 }
