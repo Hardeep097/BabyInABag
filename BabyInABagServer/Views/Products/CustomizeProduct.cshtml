@@ -1,4 +1,6 @@
-﻿
+﻿@using BabyInABagServer.Models
+@model ProductCategory
+
 @{
     ViewBag.Title = "Products1";
 }
@@ -11,11 +13,11 @@
 
 <div class="w3-row">
     <div class="w3-col w3-container m6 l5 ">
-        <img id="image1" src="~/images/blueb.jpg" alt="Blue Blanket">
+        <img id="image1" src="@Url.Content(Model.Default_Image)">
     </div>
 
     <div class="w3-col w3-container m6 l7">
-        <h2>Blue Blanket Bag</h2>
+        <h2>@Html.DisplayFor(model => model.Product_Category)</h2>
         <p>This Blanket bag is very comfortable and designed in strip-cross pattern.This version comes with proper hook that keeps you baby safe.</p>
 
         <h4 id="cprice">$60</h4>
