@@ -68,7 +68,7 @@ namespace BabyInABagServer.Controllers
         {
             return View(db.Products.ToList());
         }
-        public ActionResult Customize()
+        public ActionResult CustomizeProduct()
         {
                 return View();
         }
@@ -211,10 +211,7 @@ namespace BabyInABagServer.Controllers
                     cart.Add(item);
                     Session["cart"] = cart;
                 }
-
             }
-          
-
             return RedirectToAction("Products","Products",null);
         }
     }
