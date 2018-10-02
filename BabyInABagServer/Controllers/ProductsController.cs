@@ -86,6 +86,15 @@ namespace BabyInABagServer.Controllers
             
             return View(pc);
         }
+        
+        [HttpPost]
+        public ActionResult CustomizeProduct([Bind(Include = "Product_Id,Product_Name,Product_Price,Product_Description,Product_Image,Active,Size,Product_Category_Id")] Product product)
+        {
+
+
+
+            return View();
+        }
 
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
