@@ -7,10 +7,32 @@
 
 <!-- product Section -->
 <div class="w3-container w3-padding-32" id="contact">
-    <button id="buttoncustomize">@Html.ActionLink("Create Custom Blanket", "CustomizeProduct", "Products", null, new { style = "text-decoration:none; " })</button>
+    <button id="buttoncustomize" data-toggle="modal" data-target=".bootstrapmodal">@Html.ActionLink("Create Custom Blanket", "CustomizeProduct", "Products", null, new { style = "text-decoration:none; " })</button>
+    <div class="modal fade bootstrapmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                   <h2 style="text-align:center;">Select a Product to Customize</h2>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+
+                    @foreach (var item in ViewBag.data)
+                    {
+                        String name = item.Product_Category;
+                        <button id="modalbutton">@Html.ActionLink(name, "CustomizeProduct", "Products", new { id = item.Product_Category_Id }, new { style = "text-decoration:none;" })</button>
+                    }
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    
+    
     <div>
         @foreach (var item in Model)
         {
+            if (item.Active == true)
+            {
             <div id="productDiv" class="w3-panel w3-border w3-round-xlarge">
 
                 <div class="w3-row">
@@ -28,6 +50,7 @@
                     </div>
                 </div>
             </div>
+            }
         }
     </div>
 

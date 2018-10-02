@@ -66,11 +66,39 @@ namespace BabyInABagServer.Controllers
 
         public ActionResult Products()
         {
+
+            var categories = db.ProductCategories.ToList();
+            if (categories != null)
+            {
+                ViewBag.data = categories;
+            }
+
+
             return View(db.Products.ToList());
         }
-        public ActionResult CustomizeProduct()
+        public ActionResult CustomizeProduct(int? id)
         {
-                return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ProductCategory pc = db.ProductCategories.Find(id);
+            Product product = new Product();
+
+            if(pc.Product_Category.Equals("Blanket"))
+            {
+                product.Product_Name = "Blanket";
+                product.Product_Price = 60;
+                product.Product_Image = "/images/bluewhiteb.jpg";
+            }
+            else
+            {
+                ViewBag.Category = "Blank";
+            }
+
+
+            return View(product);
         }
 
         // GET: Products/Edit/5

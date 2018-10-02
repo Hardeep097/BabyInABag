@@ -23,6 +23,9 @@ span.field-validation-error {
     color:blue;
 }
 
+
+
+
 #oldprice{
     text-decoration: line-through;
 }
@@ -42,8 +45,30 @@ span.field-validation-error {
     /*     margin-left: 1%*/
 }
 
+/* CSS for Modal Buttons on the Product Page */
+#modalbutton {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 90%;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 30%;
+}
 
-#buttoncart{
+@media screen and (max-wdith: 480px)
+{
+    .modal-body button{
+        float:none; 
+    }
+}
+
+
+#buttoncart {
     background-color: #4CAF50;
     border: none;
     color: white;
