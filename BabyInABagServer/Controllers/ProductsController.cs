@@ -88,12 +88,26 @@ namespace BabyInABagServer.Controllers
         }
         
         [HttpPost]
-        public ActionResult CustomizeProduct([Bind(Include = "Product_Id,Product_Name,Product_Price,Product_Description,Product_Image,Active,Size,Product_Category_Id")] Product product)
+        public ActionResult CustomizeProduct(ProductCategory pcat, FormCollection frm)
         {
+            Product product = new Product();
+            product.Product_Name = "Custom: " + pcat.Product_Category;
+            product.Product_Description = "This is a custom made product made by customer " + Session["username"];
+            product.Product_Price = pcat.Default_Price;
+            product.Product_Category_Id = pcat.Product_Category_Id;
+            product.Active = false;
+            product.Size = "small";
+            product.Knit_Type = "Alder";
+            product.Color = "Blue";
+
+            using (db)
+            {
+                db.Products.Add(product);
+                db.SaveChanges();
+            }
 
 
-
-            return View();
+            return RedirectToAction("AddToCart", new { id = product.Product_Id });
         }
 
         // GET: Products/Edit/5

@@ -2,7 +2,7 @@
 @model ProductCategory
 
 @{
-    ViewBag.Title = "Products1";
+    ViewBag.Title = "CustomizeProduct";
 }
 
 <!-- Contact Section -->
@@ -11,74 +11,81 @@
     <div class="w3-col w3-container m6 l5 ">
         <img id="image1" src="@Url.Content(Model.Default_Image)">
     </div>
+    @using (Html.BeginForm("CustomizeProduct", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
 
-    <div class="w3-col w3-container m6 l7">
-        <h2>@Html.DisplayFor(model => model.Product_Category)</h2>
-        <p>Customize your own product to fit the needs of your baby, whether its a blanket, boots, or a sleeping bag.</p>
+        @Html.HiddenFor(model => model.Product_Category_Id);
+        @Html.HiddenFor(model => model.Product_Category);
+        @Html.HiddenFor(model => model.Default_Price);
 
-        <h4 id="cprice">@Html.DisplayFor(model => model.Default_Price)</h4>
+        <div class="w3-col w3-container m6 l7">
+            <h2>@Html.DisplayFor(model => model.Product_Category)</h2>
+            <p>Customize your own product to fit the needs of your baby, whether its a blanket, boots, or a sleeping bag.</p>
 
-        <div class="container">
-            <div class="row">
-                <h2>Quantity</h2>
-                <div class="col-lg-2">
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </button>
-                        </span>
-                        <input style="width:9%;" type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
+            <h4 id="cprice">@Html.DisplayFor(model => model.Default_Price)</h4>
+
+            <div class="container">
+                <div class="row">
+                    <h2>Quantity</h2>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </span>
+                            <input style="width:9%;" type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                            <span class="input-group-btn">
+                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <br>
+            <br>
 
 
-        <div>
-            <h4>color</h4>
             <div>
-                <select>
-                    <option value="blue">Blue</option>
-                    <option value="red">Red</option>
-                    <option value="yellow">Yellow</option>
-                </select>
-            </div>
+                <h4>color</h4>
+                <div>
+                    <select>
+                        <option value="blue">Blue</option>
+                        <option value="red">Red</option>
+                        <option value="yellow">Yellow</option>
+                    </select>
+                </div>
 
-            <h4>Knitting Pattern</h4>
-            <div style="">
-                <select>
-                    <option value="alder">Alder</option>
-                    <option value="popcorn">Popcorn</option>
-                    <option value="slip">Slip Stitch</option>
-                </select>
+                <h4>Knitting Pattern</h4>
+                <div style="">
+                    <select>
+                        <option value="alder">Alder</option>
+                        <option value="popcorn">Popcorn</option>
+                        <option value="slip">Slip Stitch</option>
+                    </select>
 
+                </div>
+                <h4>Size</h4>
+                <div style="">
+                    <select>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
             </div>
-            <h4>Size</h4>
-            <div style="">
-                <select>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                </select>
-            </div>
+            <br />
+            <h4>Additional Requirements</h4>
+            <textarea rows="2" cols="19" style="resize:none; width:100%" placeholder="Enter any additional requirements you want for your customized product."></textarea>
+            <br />
+
+            <button class="clear">clear</button>
+            <br>
+            <button type="submit">Save</button>
+            @*<button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>*@
         </div>
-        <br />
-        <h4>Additional Requirements</h4>
-        <textarea rows="2" cols="19" style="resize:none; width:100%" placeholder="Enter any additional requirements you want for your customized product."></textarea>
-        <br />
-
-        <button class="clear">clear</button>
-        <br>
-        <button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>
-    </div>
-
+    }
 </div>
 
 <script>

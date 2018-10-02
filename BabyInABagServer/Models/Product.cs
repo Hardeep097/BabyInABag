@@ -11,7 +11,7 @@ namespace BabyInABagServer.Models
     {
         [Key]
         public int Product_Id { get; set; }
-        [Display(Name ="Name")]
+        [Display(Name = "Name")]
         public string Product_Name { get; set; }
         [Display(Name = "Price")]
         public decimal Product_Price { get; set; }
@@ -24,6 +24,8 @@ namespace BabyInABagServer.Models
         public string Size { get; set; }
         [Display(Name = "Category")]
         public int Product_Category_Id { get; set; }
+        public string Knit_Type { get; set; }
+        public string Color { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
 
