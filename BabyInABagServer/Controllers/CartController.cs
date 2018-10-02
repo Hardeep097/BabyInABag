@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
 
 namespace BabyInABagServer.Controllers
 {
@@ -27,7 +28,9 @@ namespace BabyInABagServer.Controllers
                 List<CartItem> currentCart = (List<CartItem>)Session["cart"];
                 List<Product> activeCart = new List<Product>();
                 List<Product> products = new List<Product>();
-
+                decimal subtotalPrice = 0;
+                int subtotalAmount = 0;
+    
                 products = db.Products.ToList();
 
                 for (int c = 0; c < products.Count; c++)
@@ -37,9 +40,12 @@ namespace BabyInABagServer.Controllers
                         if (products[c].Product_Id.Equals(currentCart[d].ProductID))
                         {
                             activeCart.Add(products[c]);
+                            subtotalPrice += products[c].Product_Price;
+                            subtotalAmount++;
                         }
                     }
                 }
+                ViewBag.Subtotal = "Subtotal (" + subtotalAmount + " item): CDN$ " + subtotalPrice;
                 return View(activeCart);
             }
             return View();
