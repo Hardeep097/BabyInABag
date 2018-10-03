@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BabyInABagServer.Models;
+using BabyInABagServer.Models.VMs;
 using BabyInABagServer.Services;
 
 namespace BabyInABagServer.Controllers
@@ -97,6 +98,36 @@ namespace BabyInABagServer.Controllers
 
         public ActionResult Checkout()
         {
+            if (Session["cart"] == null)
+            {
+                ViewBag.empty = "Your cart is empty";
+            }
+            else
+            {
+                List<CartItem> currentCart = (List<CartItem>)Session["cart"];
+                List<Product> activeCart = new List<Product>();
+                List<Product> products = new List<Product>();
+                decimal subtotalPrice = 0;
+                int subtotalAmount = 0;
+
+                products = db.Products.ToList();
+
+                for (int c = 0; c < products.Count; c++)
+                {
+                    for (int d = 0; d < currentCart.Count; d++)
+                    {
+                        if (products[c].Product_Id.Equals(currentCart[d].ProductID))
+                        {
+                            activeCart.Add(products[c]);
+                            subtotalPrice += products[c].Product_Price;
+                            subtotalAmount++;
+                        }
+                    }
+                }
+                ViewBag.Subtotal = "Subtotal (" + subtotalAmount + " item): CDN$ " + subtotalPrice;
+                ViewBag.Subtotalprice = subtotalPrice;
+                return View(activeCart);
+            }
             return View();
         }
 

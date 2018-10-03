@@ -1,66 +1,117 @@
-﻿
+﻿@using BabyInABagServer.Models
+@model IEnumerable<Product>
 @{
     ViewBag.Title = "Checkout";
 }
 
-<div class="w3-container w3-padding-32">
-    <h1 class="w3-border-bottom w3-border-light-grey w3-padding-16" style="text-align: center">Order Summary</h1>
-
+<!-- FAQ Section -->
+<div class="w3-container w3-padding-small">
+    <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Checkout</h2>
 </div>
+@{ 
 
-<!-- shipping Section -->
-<div style="width:70%; margin-left: 15%;">
-    <h3><b>Your Shipping Info</b></h3>
-    <div style="margin-left: 3%">
-
-        <p><b>    Name:</b> Romin Jin</p>
-        <p><b>Address:</b> 123 Tulip dr Brampton</p>
-        <p><b>Phone:</b> 6677856789</p>
-    </div>
-</div>
+    double subtotal = (double)ViewBag.Subtotalprice;
 
 
-<div id="productDiv" class="w3-panel w3-border w3-round-xlarge" style="width: 65%">
-    <h3 style="margin-left: 2%">Review your Order</h3>
-    <div class="w3-row w3-border">
+}
+    <!--        product 1-->
+    @foreach (var item in Model)
+    {
+<div id="productDiv" class="w3-panel w3-border w3-round-xlarge" style="width: 70%">
+
+    <div class="w3-row">
+
         <div class="w3-col w3-container m4 l3 ">
-            <img id="image1" src="~/images/blueb.jpg" alt="Blue Blanket">
+            <img id="image1" src="@item.Product_Image" alt="@item.Product_Image">
         </div>
         <div class="w3-col w3-container m8 l9">
-            <h2>Blue Blanket Bag</h2>
-            <!--                        <p>This Blanket bag is very comfortable and designed in strip-cross pattern.This version comes with proper hook that keeps you baby safe.</p>-->
-            <div class="dropdown">
-                <button class="dropbtn">Shipping Option</button>
-                <div class="dropdown-content">
-                    <a href="#">Economy shipping</a>
-                    <a href="#">Expedited shipping</a>
-                </div>
-            </div>
-            <div id="pright" style="margin-right: 10%">
-                <h5 id="cprice">Shipping Cost: CAD $5</h5>
-                <h5 id="cprice">Item Cost: CAD $60</h5>
-                <h5 id="cprice">Quantity: 1</h5>
-            </div>
+            <h2>@Html.DisplayFor(modelItem => item.Product_Name)</h2>
 
-            <!--                    <button id="buttoncart">Check Out</button>-->
+
+            <div id="pright">
+                <h4 id="cprice">$@Html.DisplayFor(modelItem => item.Product_Price)</h4>
+            </div>
         </div>
+
     </div>
+
+ 
 </div>
-<!--   payment section -->
-
-<div style="width:70%; margin-left: 15%;">
-    <h3><b>Select payment method</b></h3>
-
-    <div style="font-size: 20px; margin-left: 3%">
-        <input type="radio" name="gender" value="male"> Paypal<br>
-        <input type="radio" name="gender" value="female"> Visa<br>
+    }
+    
+<div style="margin-left:15%; margin-top: 3%;">
+    
+    <div >
+        <p><b>Subtotal:</b> $@subtotal</p>
+        
     </div>
+
 </div>
 
-<hr>
+    
+<div style="text-align: center">
+    <div id="paypal-button-container"></div>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        // Render the PayPal button
+        paypal.Button.render({
+            // Set your environment
+            env: 'sandbox', // sandbox | production
 
-<div style="margin-left: 60%; margin-bottom: 5%">
-    <h3><b>Total: CAD $65</b></h3>
-    <button class="w3-button w3-black w3-round-xxlarge">@Html.ActionLink("Confirm & Pay", "Payment", "Orders", null, new { style = "text-decoration:none;" })</button>
+            // Specify the style of the button
+            style: {
+                layout: 'vertical',  // horizontal | vertical
+                size: 'medium',    // medium | large | responsive
+                shape: 'rect',      // pill | rect
+                color: 'gold'       // gold | blue | silver | white | black
+            },
+
+            // Specify allowed and disallowed funding sources
+            //
+            // Options:
+            // - paypal.FUNDING.CARD
+            // - paypal.FUNDING.CREDIT
+            // - paypal.FUNDING.ELV
+            funding: {
+                allowed: [
+                    paypal.FUNDING.CARD,
+                    paypal.FUNDING.CREDIT
+                ],
+                disallowed: []
+            },
+
+            // PayPal Client IDs - replace with your own
+            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+            client: {
+                sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                production: '<insert production client id>'
+            },
+
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {
+                                    total: '0.01',
+                                    currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute()
+                    .then(function () {
+                        window.alert('Payment Complete!');
+                    });
+            }
+        }, '#paypal-button-container');
+    </script>
 </div>
+
+
+
 
