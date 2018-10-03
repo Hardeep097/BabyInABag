@@ -10,9 +10,10 @@ namespace BabyInABagServer.Models.VMs
         public int ProductID{ get; set;}
         public int Quantity { get; set; }
 
-        public CartItem(int id)
+        public CartItem(int id, int quantity)
         {
             ProductID = id;
+            Quantity = quantity;
         }
 
         public CartItem()

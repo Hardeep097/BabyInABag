@@ -225,7 +225,7 @@ namespace BabyInABagServer.Controllers
         }
 
 
-        public ActionResult AddToCart(int? id)
+        public ActionResult AddToCart(int? id, int? quantity)
         {
             if (id == null)
             {
@@ -241,14 +241,14 @@ namespace BabyInABagServer.Controllers
                 if (TempData["cart"] == null)
                 {
                     
-                    CartItem item = new CartItem((int)id);
+                    CartItem item = new CartItem((int)id, (int)quantity);
                     cart.Add(item);
                     TempData["cart"] = cart;
                     Session["cart"] = cart;
                 }
                 else
                 {
-                    CartItem item = new CartItem((int)id);
+                    CartItem item = new CartItem((int)id, (int)quantity);
                     cart = TempData["cart"] as List<CartItem>;
                     cart.Add(item);
                     Session["cart"] = cart;
