@@ -26,6 +26,8 @@ namespace BabyInABagServer.Models
         public int Product_Category_Id { get; set; }
         public string Knit_Type { get; set; }
         public string Color { get; set; }
+
+        public string AdditionalRequirements { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
 

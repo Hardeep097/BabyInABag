@@ -17,74 +17,78 @@
         @Html.HiddenFor(model => model.Product_Category_Id);
         @Html.HiddenFor(model => model.Product_Category);
         @Html.HiddenFor(model => model.Default_Price);
+        @Html.HiddenFor(model => model.Default_Image);
 
-        <div class="w3-col w3-container m6 l7">
-            <h2>@Html.DisplayFor(model => model.Product_Category)</h2>
-            <p>Customize your own product to fit the needs of your baby, whether its a blanket, boots, or a sleeping bag.</p>
+    <div class="w3-col w3-container m6 l7">
+        <h2>@Html.DisplayFor(model => model.Product_Category)</h2>
+        <p>Customize your own product to fit the needs of your baby, whether its a blanket, boots, or a sleeping bag.</p>
 
-            <h4 id="cprice">@Html.DisplayFor(model => model.Default_Price)</h4>
+        <h4 id="cprice">@Html.DisplayFor(model => model.Default_Price)</h4>
 
-            <div class="container">
-                <div class="row">
-                    <h2>Quantity</h2>
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </button>
-                            </span>
-                            <input style="width:9%;" type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn">
-                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                            </span>
-                        </div>
+        <div class="container">
+            <div class="row">
+                <h2>Quantity</h2>
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        </span>
+                        <input style="width:9%;" type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
-            <br>
-
-
-            <div>
-                <h4>color</h4>
-                <div>
-                    <select>
-                        <option value="blue">Blue</option>
-                        <option value="red">Red</option>
-                        <option value="yellow">Yellow</option>
-                    </select>
-                </div>
-
-                <h4>Knitting Pattern</h4>
-                <div style="">
-                    <select>
-                        <option value="alder">Alder</option>
-                        <option value="popcorn">Popcorn</option>
-                        <option value="slip">Slip Stitch</option>
-                    </select>
-
-                </div>
-                <h4>Size</h4>
-                <div style="">
-                    <select>
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="large">Large</option>
-                    </select>
-                </div>
-            </div>
-            <br />
-            <h4>Additional Requirements</h4>
-            <textarea rows="2" cols="19" style="resize:none; width:100%" placeholder="Enter any additional requirements you want for your customized product."></textarea>
-            <br />
-
-            <button class="clear">clear</button>
-            <br>
-            <button type="submit">Save</button>
-            @*<button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>*@
         </div>
+        <br>
+
+
+        <div>
+            <h4>Color</h4>
+            <div>
+                <select name="color">
+                    <option value="Blue">Blue</option>
+                    <option value="Red">Red</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Black">Black</option>
+                </select>
+            </div>
+                                                                                        
+            <h4>Knitting Pattern</h4>
+            <div >
+                <select name="knit">
+                    <option value="Alder">Alder</option>
+                    <option value="Popcorn">Popcorn</option>
+                    <option value="Slip Stitch">Slip Stitch</option>
+                </select>
+
+            </div>
+
+            <h4>Size</h4>
+            <div style="">
+                <select name="size">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <h4>Additional Requirements</h4>
+        <textarea name="additionalRequirements" rows="2" cols="19" style="resize:none; width:100%" placeholder="Enter any additional requirements you want for your customized product."></textarea>
+        <br />
+        <button id="buttoncustomize" type="submit">Save</button>
+        <button id="buttoncustomize">Clear</button>
+
+        @*<button id="buttoncart">@Html.ActionLink("Add to Cart", "Cart", "Cart", null, new { style = "text-decoration:none;" })</button>*@
+    </div>
     }
 </div>
 
@@ -123,38 +127,5 @@
             }
         });
 
-    }); $(document).ready(function () {
-
-        var quantitiy = 0;
-        $('.quantity-right-plus').click(function (e) {
-
-            // Stop acting like a button
-            e.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity').val());
-
-            // If is not undefined
-
-            $('#quantity').val(quantity + 0);
-
-
-            // Increment
-
-        });
-
-        $('.quantity-left-minus').click(function (e) {
-            // Stop acting like a button
-            e.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity').val());
-
-            // If is not undefined
-
-            // Increment
-            if (quantity > 0) {
-                $('#quantity').val(quantity - 0);
-            }
-        });
-
-    });
+    }); 
 </script>

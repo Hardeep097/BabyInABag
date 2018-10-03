@@ -40,10 +40,7 @@ namespace BabyInABagServer.Migrations
 
             context.Products.AddOrUpdate(
                 p => p.Product_Id,
-                new Product { Product_Id = 1, Product_Description = "Blanket Bag white strip", Product_Name = "Blanket Bag", Product_Price = 55, Size = "Small", Active = true, Product_Image = "root", Product_Category_Id = 1 },
-                new Product { Product_Id = 2, Product_Description = "Blanket blue strip", Product_Name = "Blanket ", Product_Price = 45, Size = "Medium", Active = true, Product_Image = "root", Product_Category_Id = 1 },
-                new Product { Product_Id = 3, Product_Description = "Blanket Bag green ", Product_Name = "Blanket Bag", Product_Price = 50, Size = "Small", Active = true, Product_Image = "root", Product_Category_Id = 2 },
-                new Product { Product_Id = 4, Product_Description = "Blanket Hot", Product_Name = "Blanket", Product_Price = 60, Size = "Large", Active = true, Product_Image = "root", Product_Category_Id = 3 }
+                new Product { Product_Id = 1, Product_Description = "Blanket Bag white strip", Product_Name = "Blanket Bag", Product_Price = 55, Size = "Small", Active = true, Product_Image = "root", Product_Category_Id = 1 }
                 );
 
             context.ProductCategories.AddOrUpdate(
