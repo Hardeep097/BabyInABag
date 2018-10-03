@@ -5,10 +5,10 @@
 }
 
 <!-- FAQ Section -->
-<div class="w3-container w3-padding-32">
+<div class="w3-container w3-padding-16">
     <h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Shopping Cart</h2>
 </div>
-
+@Html.ActionLink("Continue Shopping", "Products", "Products")
 @if (ViewBag.empty == null)
 {
     <!--        product 1-->
@@ -58,7 +58,6 @@
                             </div>
                         </div>
                     </div>
-                    <button id="buttoncustomize">@Html.ActionLink("Delete", "RemoveFromCart", "Cart", new { id = item.Product_Id }, new { style = "text-decoration:none;" })</button>
                     
                 </div>
 
@@ -66,10 +65,10 @@
 
         </div>
     }
-    <div>
+    <div style="">
         <p>@ViewBag.Subtotal</p>
     </div>
-    <div style="width:25%; margin-left:45%">
+    <div style="width:25%; text-align:center;float:right;">
         <button id="buttoncart">@Html.ActionLink("Check Out", "Checkout", "Orders", null, new { style = "text-decoration:none;" })</button>
     </div>
 

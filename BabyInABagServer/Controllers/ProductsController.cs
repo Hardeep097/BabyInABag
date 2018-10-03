@@ -254,7 +254,7 @@ namespace BabyInABagServer.Controllers
                     Session["cart"] = cart;
                 }
             }
-            return RedirectToAction("Products","Products",null);
+            return RedirectToAction("Cart","Cart",null);
         }
     }
 }
