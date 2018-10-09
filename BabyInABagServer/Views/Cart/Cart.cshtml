@@ -32,12 +32,13 @@
                         @if (item.AdditionalRequirements != null)
                         {
                             <p><b>Additional Requirements:</b> @Html.DisplayFor(modelItem => item.AdditionalRequirements) </p>
-                            }
-                      
+                        }
+
                     </div>
                     <div id="pright">
                         <h4 id="cprice">$@Html.DisplayFor(modelItem => item.Product_Price)</h4>
                     </div>
+
                     <div>
                         <div class="row">
                             <h4>Quantity</h4>
@@ -58,7 +59,8 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <br />
+                    <button class="clear">@Html.ActionLink("Delete", "RemoveFromCart", "Cart", new { id = item.Product_Id }, new { style = "text-decoration:none;" })</button>
                 </div>
 
             </div>
