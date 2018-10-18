@@ -19,6 +19,9 @@ namespace BabyInABagServer.Models
         [ForeignKey("Customer")]
         public int Customer_Id { get; set; }
 
+        public string Shipping_Address { get; set; }
+        public string Invoice_Status { get; set; }
+
 
         public virtual Customer Customer { get; set; }
 
