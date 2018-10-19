@@ -183,5 +183,12 @@ namespace BabyInABagServer.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult GetPayPalData()
+        {
+            var getData = new GetPayPalData();
+            return View();
+        }
+
     }
 }

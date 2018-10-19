@@ -7,5 +7,6 @@ namespace BabyInABagServer.Models.VMs
 {
     public class GetPayPalData
     {
+
     }
 }
