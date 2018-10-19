@@ -19,7 +19,8 @@ namespace BabyInABagServer.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            //var orders = db.Orders.Include(o => o.Customer);
+            return View(/*orders.ToList()*/);
         }
 
         // GET: Orders/Details/5
@@ -34,6 +35,31 @@ namespace BabyInABagServer.Controllers
             {
                 return HttpNotFound();
             }
+            return View(order);
+        }
+
+        // GET: Orders/Create
+        public ActionResult Create()
+        {
+            ViewBag.CustomerId = new SelectList(db.Customers, "Customer_Id", "First_Name");
+            return View();
+        }
+
+        // POST: Orders/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Order_Id,Order_Date_Placed,Order_Status,Order_Details,Order_Date_Paid,CustomerId")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Orders.Add(order);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CustomerId = new SelectList(db.Customers, "Customer_Id", "First_Name", order.Customer_Id);
             return View(order);
         }
 
@@ -100,48 +126,9 @@ namespace BabyInABagServer.Controllers
                 }
                 ViewBag.Subtotal = "Subtotal (" + subtotalAmount + " item): CDN$ " + subtotalPrice;
                 ViewBag.Subtotalprice = subtotalPrice;
-
-                Create(activeCart);
-
                 return View(activeCart);
             }
             return View();
-        }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public void Create(List<Product> activeProducts)
-        {
-            List<Product> activeCart = activeProducts;
-
-            string username = (string)Session["username"];
-            int customer_id = 0;
-            List<Customer> customers = db.Customers.ToList();
-            for(int i = 0; i < customers.Count; i++)
-            {
-                if(customers[i].Username == username)
-                {
-                    customer_id = customers[i].Customer_Id;
-                }
-            }
-
-            Order order = new Order();
-            order.Customer_Id = customer_id;
-            order.Shipping_Address = "32 Mill Street South Brampton On L6Y 1S6";
-            order.Products = activeCart;
-            order.Order_Status = "Submitted";
-            order.Order_Date_Placed = System.DateTime.Now;
-            order.Order_Date_Paid = System.DateTime.Now;
-            order.Invoice_Status = "Paid";
-
-            if (ModelState.IsValid)
-            {
-                db.Orders.Add(order);
-                db.SaveChanges();
-            }
         }
 
         public ActionResult Payment()
@@ -183,5 +170,12 @@ namespace BabyInABagServer.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult GetPayPalData()
+        {
+            var getData = new GetPayPalData();
+            return View();
+        }
+
     }
 }
