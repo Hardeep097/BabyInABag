@@ -10,8 +10,10 @@ namespace BabyInABagServer.Models
     {
         [Key]
         public int Customer_Id { get; set; }
+        [Display(Name = "First Name")]
         public string First_Name { get; set; }
         public string Middle_Name { get; set; }
+        [Display(Name = "Last Name")]
         public string Last_Name { get; set; }
         public string Customer_Phone { get; set; }
         public string Customer_Email { get; set; }
