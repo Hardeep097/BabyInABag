@@ -34,8 +34,8 @@ namespace BabyInABagServer.Migrations
 
             context.Orders.AddOrUpdate(
                 o => o.Order_Id,
-               new Order { Order_Id = 1, Order_Date_Placed = value, Order_Date_Paid = value, Order_Details = "Blankets", Order_Status = Order_Status.InProgress, Customer_Id = 1 },
-               new Order { Order_Id = 2, Order_Date_Placed = value, Order_Date_Paid = value, Order_Details = "Bag blanket", Order_Status = Order_Status.InProgress, Customer_Id = 2 }
+               new Order { Order_Id = 1, Order_Date_Placed = value, Order_Date_Paid = value, Order_Details = "Blankets", Order_Status = order_status.InProgress, Customer_Id = 1 },
+               new Order { Order_Id = 2, Order_Date_Placed = value, Order_Date_Paid = value, Order_Details = "Bag blanket", Order_Status = order_status.InProgress, Customer_Id = 2 }
                );
 
             context.Products.AddOrUpdate(

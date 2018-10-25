@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using BabyInABagServer.Models;
@@ -49,7 +50,7 @@ namespace BabyInABagServer.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.CustomerId = new SelectList(db.Customers, "Customer_Id", "First_Name", order.Customer_Id);
+            ViewBag.CustomerId = new SelectList(db.Customers, "Customer_Id", "First_Name", order.Customer_Id);
             return View(order);
         }
 
@@ -58,7 +59,7 @@ namespace BabyInABagServer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Order_Id,Order_Date_Placed,Order_Status,Order_Details,Order_Date_Paid,Invoice_Status,Customer_Id")] Order order)
+        public ActionResult Edit([Bind(Include = "Order_Id,Order_Date_Placed,Order_Status,Order_Details,Order_Date_Paid,Invoice_Status,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +133,7 @@ namespace BabyInABagServer.Controllers
             order.Customer_Id = customer_id;
             order.Shipping_Address = "32 Mill Street South Brampton On L6Y 1S6";
             order.Products = activeCart;
-            order.Order_Status = Order_Status.Submitted;
+            order.Order_Status = order_status.Submitted;
             order.Order_Date_Placed = System.DateTime.Now;
             order.Order_Date_Paid = System.DateTime.Now;
             order.Invoice_Status = "Paid";
@@ -187,6 +188,22 @@ namespace BabyInABagServer.Controllers
         public ActionResult GetPayPalData()
         {
             var getData = new GetPayPalData();
+            string response = getData.GetPayPalResponse(Request.QueryString["tx"]);
+            
+            Regex rgx = new Regex(@"\b receiver_email=\K[\S]*");
+            string receiver_email;
+
+            try
+            {
+                receiver_email = rgx.Match(response).ToString();
+            }
+            catch(Exception e)
+            {
+                receiver_email = "Caught Error";
+            }
+            
+
+            ViewBag.txt = receiver_email;
             return View();
         }
 

@@ -311,6 +311,7 @@
     <Content Include="Views\Orders\Checkout.cshtml" />
     <Content Include="Views\Orders\Payment.cshtml" />
     <Content Include="Views\Products\CustomizeProduct.cshtml" />
+    <Content Include="Views\Orders\GetPayPalData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
