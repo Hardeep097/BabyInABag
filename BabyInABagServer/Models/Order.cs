@@ -15,7 +15,7 @@ namespace BabyInABagServer.Models
         [Display(Name = "Order Placed Date")]
         public System.DateTime Order_Date_Placed { get; set; }
         [Display(Name = "Order Status")]
-        public order_status Order_Status { get; set; }
+        public Order_Status Order_Status { get; set; }
         [Display(Name = "Order Details")]
         public string Order_Details { get; set; }
         [Display(Name = "Order Paid Date")]
@@ -32,5 +32,5 @@ namespace BabyInABagServer.Models
 
         public virtual ICollection<Product> Products { get; set; }
     }
-    public enum order_status {Submitted,Pending,Processing,InProgress,Completed,Rejected,Refunded}
+    public enum Order_Status {Submitted,Pending,Processing,InProgress,Completed,Rejected,Refunded}
 }

@@ -154,7 +154,7 @@ namespace BabyInABagServer.Controllers
             //Order order = new Order();
             order.Customer_Id = customer_id;
             order.Products = getCartProducts();
-            order.Order_Status = order_status.Submitted;
+            order.Order_Status = Order_Status.Submitted;
             order.Order_Date_Placed = System.DateTime.Now;
             order.Order_Date_Paid = System.DateTime.Now;
             order.Invoice_Status = "Paid";
