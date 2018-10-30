@@ -97,9 +97,9 @@
                 @Html.HiddenFor(model => model.Order_Id)
                 @Html.HiddenFor(model => model.Order_Date_Placed)
                 @Html.HiddenFor(model => model.Order_Details)
-                @Html.HiddenFor(model => model.Order_Date_Paid)
+                @Html.HiddenFor(model => model.Full_Name)
                 @Html.HiddenFor(model => model.Shipping_Address)
-                @Html.HiddenFor(model => model.Invoice_Status)
+                
                 @Html.HiddenFor(model => model.Customer_Id)
                 @Html.HiddenFor(model => model.Customer.Customer_Id)
                 <font size="4">
@@ -139,7 +139,7 @@
                             </tr>
                             <tr>
                                 <td><p style="margin: 0px;">@Html.DisplayFor(model => model.Shipping_Address)</p></td>
-                                <td><p style="margin: 0px;">@Html.DisplayFor(model => model.Invoice_Status)</p></td>
+                                
                             </tr>
                         </table>
                     </div>

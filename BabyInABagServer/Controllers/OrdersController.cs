@@ -156,8 +156,7 @@ namespace BabyInABagServer.Controllers
             order.Products = getCartProducts();
             order.Order_Status = Order_Status.Submitted;
             order.Order_Date_Placed = System.DateTime.Now;
-            order.Order_Date_Paid = System.DateTime.Now;
-            order.Invoice_Status = "Paid";
+           
 
             if (ModelState.IsValid)
             {
@@ -240,6 +239,7 @@ namespace BabyInABagServer.Controllers
 
                 Order order = new Order();
                 order.Shipping_Address = shipping_address;
+                order.Full_Name = address_name_decoded;
 
                 Create(order);
 
