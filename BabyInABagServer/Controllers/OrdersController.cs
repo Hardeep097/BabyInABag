@@ -102,11 +102,33 @@ namespace BabyInABagServer.Controllers
                 ViewBag.Subtotal = "Subtotal (" + subtotalAmount + " item): CDN$ " + subtotalPrice;
                 ViewBag.Subtotalprice = subtotalPrice;
 
-                Create(activeCart);
+               // Create(activeCart);
 
                 return View(activeCart);
             }
             return View();
+        }
+
+        public List<Product> getCartProducts()
+        {
+            List<CartItem> currentCart = (List<CartItem>)Session["cart"];
+            List<Product> activeCart = new List<Product>();
+            List<Product> products = new List<Product>();
+
+            products = db.Products.ToList();
+
+            for (int c = 0; c < products.Count; c++)
+            {
+                for (int d = 0; d < currentCart.Count; d++)
+                {
+                    if (products[c].Product_Id.Equals(currentCart[d].ProductID))
+                    {
+                        activeCart.Add(products[c]);
+                    }
+                }
+            }
+
+            return activeCart;
         }
 
         // POST: Orders/Create
@@ -114,9 +136,9 @@ namespace BabyInABagServer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void Create(List<Product> activeProducts)
+        public void Create(Order order)
         {
-            List<Product> activeCart = activeProducts;
+            //List<Product> activeCart = activeProducts;
 
             string username = (string)Session["username"];
             int customer_id = 0;
@@ -129,10 +151,9 @@ namespace BabyInABagServer.Controllers
                 }
             }
 
-            Order order = new Order();
+            //Order order = new Order();
             order.Customer_Id = customer_id;
-            order.Shipping_Address = "32 Mill Street South Brampton On L6Y 1S6";
-            order.Products = activeCart;
+            order.Products = getCartProducts();
             order.Order_Status = order_status.Submitted;
             order.Order_Date_Placed = System.DateTime.Now;
             order.Order_Date_Paid = System.DateTime.Now;
@@ -187,23 +208,49 @@ namespace BabyInABagServer.Controllers
 
         public ActionResult GetPayPalData()
         {
+            //POST Response to PayPal with TX token, pull Order Response for SUCCESS or FAIL payment
             var getData = new GetPayPalData();
             string response = getData.GetPayPalResponse(Request.QueryString["tx"]);
-            
-            Regex rgx = new Regex(@"\b receiver_email=\K[\S]*");
-            string receiver_email;
 
-            try
+            Regex payment_success_rgx = new Regex(@"SUCCESS");
+            if(payment_success_rgx.Match(response).ToString().Equals("SUCCESS"))
             {
-                receiver_email = rgx.Match(response).ToString();
-            }
-            catch(Exception e)
-            {
-                receiver_email = "Caught Error";
-            }
-            
 
-            ViewBag.txt = receiver_email;
+                //Regex to Parse through decoded response
+                Regex address_name_rgx = new Regex(@"(?<=address_name=).*?(?=\s)");
+                Regex address_street_rgx = new Regex(@"(?<=address_street=).*?(?=\s)");
+                Regex address_city_rgx = new Regex(@"(?<=address_city=).*?(?=\s)");
+                Regex address_country_rgx = new Regex(@"(?<=address_country=).*?(?=\s)");
+                Regex address_state_rgx = new Regex(@"(?<=address_state=).*?(?=\s)");
+                Regex address_zip_rgx = new Regex(@"(?<=address_zip=).*?(?=\s)");
+
+               //Parsed Fields being Decoded
+                string address_street_decoded = HttpUtility.UrlDecode(address_street_rgx.Match(response).ToString());
+                string address_name_decoded = HttpUtility.UrlDecode(address_name_rgx.Match(response).ToString());
+                string address_city_decoded = HttpUtility.UrlDecode(address_city_rgx.Match(response).ToString());
+                string address_country_decoded = HttpUtility.UrlDecode(address_country_rgx.Match(response).ToString());
+                string address_state_decoded = HttpUtility.UrlDecode(address_state_rgx.Match(response).ToString());
+                string address_zip_decoded = HttpUtility.UrlDecode(address_zip_rgx.Match(response).ToString());
+
+                String shipping_address = address_street_decoded + "\n" +
+                                          address_city_decoded + ", "  + 
+                                          address_state_decoded + "\n" +
+                                          address_country_decoded + ", " + 
+                                          address_zip_decoded;
+
+                Order order = new Order();
+                order.Shipping_Address = shipping_address;
+
+                Create(order);
+
+                ViewBag.status_message = "Your Payment was Successful!";
+
+            }
+            else
+            {
+                ViewBag.status_message = "Your Payment didnt go through!";
+            }
+
             return View();
         }
 
