@@ -91,16 +91,17 @@ namespace BabyInABagServer.Controllers
         [HttpPost]
         public ActionResult CustomizeProduct(ProductCategory pcat, FormCollection frm)
         {
-            Product product = new Product();
-            product.Product_Name = "Custom: " + pcat.Product_Category;
-            product.Product_Description = "This is a custom made product made by customer " + Session["username"];
-            product.Product_Price = pcat.Default_Price;
-            product.Product_Category_Id = pcat.Product_Category_Id;
-            product.Active = false;
-           
-            product.Knit_Type = frm["knit"];
-            product.Color = frm["color"];
-            product.Product_Image = pcat.Default_Image;
+            Product product = new Product
+            {
+                Product_Name = "Custom: " + pcat.Product_Category,
+                Product_Description = "This is a custom made product made by customer " + Session["username"],
+                Product_Price = pcat.Default_Price,
+                Product_Category_Id = pcat.Product_Category_Id,
+                Active = false,
+                Knit_Type = frm["knit"],
+                Color = frm["color"],
+                Product_Image = pcat.Default_Image
+            };
             if (frm["additionalRequirements"] != "")
             {
                 product.AdditionalRequirements = frm["additionalRequirements"];

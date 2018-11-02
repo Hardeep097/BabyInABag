@@ -74,10 +74,12 @@ namespace BabyInABagServer.Controllers
             if (categoryChoice.Equals("Create new"))
             {
 
-                ProductCategory product_category = new ProductCategory();
-                product_category.Product_Category = frm["Product_Category_new"].ToString();
-                
-                    db.ProductCategories.Add(product_category);
+                ProductCategory product_category = new ProductCategory
+                {
+                    Product_Category = frm["Product_Category_new"].ToString()
+                };
+
+                db.ProductCategories.Add(product_category);
                     db.SaveChanges();
 
                     TempData["category_id"] = product_category.Product_Category_Id;
@@ -96,7 +98,6 @@ namespace BabyInABagServer.Controllers
             fileName = Path.Combine(Server.MapPath("~/images/"), fileName);
             product.ImageFile.SaveAs(fileName);
             product.Active = true;
-            
 
                 if (TempData["category_id"] != null)
                 {

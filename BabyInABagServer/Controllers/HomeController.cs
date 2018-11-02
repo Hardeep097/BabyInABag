@@ -12,12 +12,6 @@ namespace BabyInABagServer.Controllers
         {
             return View();
         }
-        public ActionResult Checkmark()
-        {
-
-
-            return View();
-        }
 
         public ActionResult About()
         {

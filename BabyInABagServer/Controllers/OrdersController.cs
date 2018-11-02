@@ -59,7 +59,7 @@ namespace BabyInABagServer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Order_Id,Order_Date_Placed,Order_Status,Order_Details,Order_Date_Paid,Invoice_Status,CustomerId")] Order order)
+        public ActionResult Edit([Bind(Include = "Order_Id,Order_Date_Placed,Order_Status,Order_Details,Order_Date_Paid,Invoice_Status,Customer_Id")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace BabyInABagServer.Controllers
             return View();
         }
 
-        public List<Product> getCartProducts()
+        public List<Product> GetCartProducts()
         {
             List<CartItem> currentCart = (List<CartItem>)Session["cart"];
             List<Product> activeCart = new List<Product>();
@@ -154,7 +154,7 @@ namespace BabyInABagServer.Controllers
 
             //Order order = new Order();
             order.Customer_Id = customer_id;
-            order.Products = getCartProducts();
+            order.Products = GetCartProducts();
             order.Order_Status = Order_Status.Submitted;
             order.Order_Date_Placed = System.DateTime.Now;
            
@@ -211,12 +211,10 @@ namespace BabyInABagServer.Controllers
             //POST Response to PayPal with TX token, pull Order Response for SUCCESS or FAIL payment
             var getData = new GetPayPalData();
             string response = getData.GetPayPalResponse(Request.QueryString["tx"]);
-            List<Product> activeCart = new List<Product>(); ;
 
             Regex payment_success_rgx = new Regex(@"SUCCESS");
             if(payment_success_rgx.Match(response).ToString().Equals("SUCCESS"))
             {
-
                 //Regex to Parse through decoded response
                 Regex address_name_rgx = new Regex(@"(?<=address_name=).*?(?=\s)");
                 Regex address_street_rgx = new Regex(@"(?<=address_street=).*?(?=\s)");
@@ -226,7 +224,7 @@ namespace BabyInABagServer.Controllers
                 Regex address_zip_rgx = new Regex(@"(?<=address_zip=).*?(?=\s)");
                 Regex payment_gross_rgx = new Regex(@"(?<=payment_gross=).*?(?=\s)");
 
-                //Parsed Fields being Decoded
+               //Parsed Fields being Decoded
                 string address_street_decoded = HttpUtility.UrlDecode(address_street_rgx.Match(response).ToString());
                 string address_name_decoded = HttpUtility.UrlDecode(address_name_rgx.Match(response).ToString());
                 string address_city_decoded = HttpUtility.UrlDecode(address_city_rgx.Match(response).ToString());
@@ -241,23 +239,22 @@ namespace BabyInABagServer.Controllers
                                           address_country_decoded + ", " + 
                                           address_zip_decoded;
 
-                Order order = new Order();
-                order.Shipping_Address = shipping_address;
-                order.Full_Name = address_name_decoded;
-                order.Order_Total = Convert.ToDecimal(payment_gross_decoded);
+                Order order = new Order
+                {
+                    Shipping_Address = shipping_address,
+                    Full_Name = address_name_decoded,
+                    Order_Total = Convert.ToDecimal(payment_gross_decoded)
+                };
 
                 Create(order);
 
-                activeCart = getCartProducts();
-
+                ViewBag.status_message = "Your Payment was Successful!";
             }
             else
             {
-                
+                ViewBag.status_message = "Your Payment didnt go through!";
             }
-
-            return View(activeCart);
+            return View();
         }
-
     }
 }
