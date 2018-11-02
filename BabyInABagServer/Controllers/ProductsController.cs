@@ -97,7 +97,7 @@ namespace BabyInABagServer.Controllers
             product.Product_Price = pcat.Default_Price;
             product.Product_Category_Id = pcat.Product_Category_Id;
             product.Active = false;
-            product.Size = frm["size"];
+           
             product.Knit_Type = frm["knit"];
             product.Color = frm["color"];
             product.Product_Image = pcat.Default_Image;

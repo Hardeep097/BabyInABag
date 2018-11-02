@@ -16,8 +16,8 @@ namespace BabyInABagServer.Models
         public System.DateTime Order_Date_Placed { get; set; }
         [Display(Name = "Order Status")]
         public Order_Status Order_Status { get; set; }
-        [Display(Name = "Order Details")]
-        public string Order_Details { get; set; }
+        [Display(Name = "Order Total")]
+        public decimal Order_Total { get; set; }
         [Display(Name = "Full Name")]
         public string Full_Name { get; set; }
         [Display(Name = "Shipping Address")]

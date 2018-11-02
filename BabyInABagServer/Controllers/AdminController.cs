@@ -96,7 +96,7 @@ namespace BabyInABagServer.Controllers
             fileName = Path.Combine(Server.MapPath("~/images/"), fileName);
             product.ImageFile.SaveAs(fileName);
             product.Active = true;
-            product.Size = "Standard";
+            
 
                 if (TempData["category_id"] != null)
                 {

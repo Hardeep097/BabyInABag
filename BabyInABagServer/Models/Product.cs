@@ -21,7 +21,7 @@ namespace BabyInABagServer.Models
         [Display(Name = "Image")]
         public string Product_Image { get; set; }
         public bool Active { get; set; }
-        public string Size { get; set; }
+       
         [Display(Name = "Category")]
         public int Product_Category_Id { get; set; }
         public string Knit_Type { get; set; }

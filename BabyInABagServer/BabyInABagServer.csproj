@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201809182032239_AddProductClass.Designer.cs">
       <DependentUpon>201809182032239_AddProductClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810302054550_Migrate.cs" />
+    <Compile Include="Migrations\201810302054550_Migrate.Designer.cs">
+      <DependentUpon>201810302054550_Migrate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -335,6 +339,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809182032239_AddProductClass.resx">
       <DependentUpon>201809182032239_AddProductClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810302054550_Migrate.resx">
+      <DependentUpon>201810302054550_Migrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

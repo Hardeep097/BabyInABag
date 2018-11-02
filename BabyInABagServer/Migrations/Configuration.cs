@@ -34,13 +34,13 @@ namespace BabyInABagServer.Migrations
 
             context.Orders.AddOrUpdate(
                 o => o.Order_Id,
-               new Order { Order_Id = 1, Order_Date_Placed = value,  Order_Details = "Blankets", Order_Status = Order_Status.InProgress, Customer_Id = 1 },
-               new Order { Order_Id = 2, Order_Date_Placed = value, Order_Details = "Bag blanket", Order_Status = Order_Status.InProgress, Customer_Id = 2 }
+               new Order { Order_Id = 1, Order_Date_Placed = value,  Order_Status = Order_Status.InProgress, Customer_Id = 1 },
+               new Order { Order_Id = 2, Order_Date_Placed = value, Order_Status = Order_Status.InProgress, Customer_Id = 2 }
                );
 
             context.Products.AddOrUpdate(
                 p => p.Product_Id,
-                new Product { Product_Id = 1, Product_Description = "Blanket Bag white strip", Product_Name = "Blanket Bag", Product_Price = 55, Size = "Small", Active = true, Product_Image = "root", Product_Category_Id = 1 }
+                new Product { Product_Id = 1, Product_Description = "Blanket Bag white strip", Product_Name = "Blanket Bag", Product_Price = 55, Active = true, Product_Image = "root", Product_Category_Id = 1 }
                 );
 
             context.ProductCategories.AddOrUpdate(

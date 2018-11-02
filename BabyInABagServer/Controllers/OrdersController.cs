@@ -244,6 +244,9 @@ namespace BabyInABagServer.Controllers
                 Create(order);
 
                 ViewBag.status_message = "Your Payment was Successful!";
+                ViewBag.encoded_response = response;
+                ViewBag.decoded_response = HttpUtility.UrlDecode(response).ToString();
+                ViewBag.name = address_name_decoded;
 
             }
             else
