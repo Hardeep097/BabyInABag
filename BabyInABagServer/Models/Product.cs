@@ -20,8 +20,8 @@ namespace BabyInABagServer.Models
         public string Product_Description { get; set; }
         [Display(Name = "Image")]
         public string Product_Image { get; set; }
+        public int Quantity { get; set; }
         public bool Active { get; set; }
-       
         [Display(Name = "Category")]
         public int Product_Category_Id { get; set; }
         public string Knit_Type { get; set; }
