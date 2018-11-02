@@ -28,6 +28,7 @@
                     <div class="description">
                         <p><b>Knit Type:</b> @Html.DisplayFor(modelItem => item.Knit_Type) </p>
                         <p><b>Color:</b> @Html.DisplayFor(modelItem => item.Color) </p>
+                        <p><b>Quantity:</b> @Html.DisplayFor(modelItem => item.Quantity) </p>
                         @if (item.AdditionalRequirements != null)
                         {
                             <p><b>Additional Requirements:</b> @Html.DisplayFor(modelItem => item.AdditionalRequirements) </p>
@@ -38,26 +39,6 @@
                         <h4 id="cprice">$@Html.DisplayFor(modelItem => item.Product_Price)</h4>
                     </div>
 
-                    <div>
-                        <div class="row">
-                            <h4>Quantity</h4>
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
-                                            <span class="glyphicon glyphicon-minus"></span>
-                                        </button>
-                                    </span>
-                                    <input style="width:9%;" type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <br />
                     <button class="clear">@Html.ActionLink("Delete", "RemoveFromCart", "Cart", new { id = item.Product_Id }, new { style = "text-decoration:none;" })</button>
                 </div>

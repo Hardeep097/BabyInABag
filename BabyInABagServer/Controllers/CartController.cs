@@ -38,9 +38,15 @@ namespace BabyInABagServer.Controllers
                     {
                         if (products[c].Product_Id.Equals(currentCart[d].ProductID))
                         {
+                            products[c].Quantity = currentCart[d].Quantity;
                             activeCart.Add(products[c]);
-                            subtotalPrice += products[c].Product_Price;
-                            subtotalAmount++;
+
+                            for(int i = 0; i < products[c].Quantity;i++)
+                            {
+                                subtotalPrice += products[c].Product_Price;
+                                subtotalAmount++;
+                            }
+                            
                         }
                     }
                 }

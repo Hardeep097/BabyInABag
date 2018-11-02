@@ -226,12 +226,17 @@ namespace BabyInABagServer.Controllers
         }
 
 
-        public ActionResult AddToCart(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddToCart(FormCollection frm)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            int id = Int32.Parse(frm["pid"]);
+            int quan = Int32.Parse(frm["quantity"]);
+            
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
 
             if(Session["username"] == null)
             {
@@ -242,14 +247,14 @@ namespace BabyInABagServer.Controllers
                 if (TempData["cart"] == null)
                 {
                     
-                    CartItem item = new CartItem((int)id);
+                    CartItem item = new CartItem((int)id, (int)quan);
                     cart.Add(item);
                     TempData["cart"] = cart;
                     Session["cart"] = cart;
                 }
                 else
                 {
-                    CartItem item = new CartItem((int)id);
+                    CartItem item = new CartItem((int)id, (int)quan);
                     cart = TempData["cart"] as List<CartItem>;
                     cart.Add(item);
                     Session["cart"] = cart;

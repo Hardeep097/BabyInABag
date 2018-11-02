@@ -51,11 +51,12 @@
     <input type="hidden" name="business" value="@ConfigurationManager.AppSettings["accountBusiness"]" />
     @foreach (var item in Model)
     {
-
         <input type="hidden" name="@Url.Content("item_name_" + i)" value="@item.Product_Name" />
         <input type="hidden" name="@Url.Content("item_number_" + i)" value="@item.Product_Id" />
         <input type="hidden" name="@Url.Content("amount_" + i)" value="@item.Product_Price" />
+        <input type="hidden" name="@Url.Content("quantity_" + i)" value="@item.Quantity" />
         i++;
+        
     }
         <div>
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
