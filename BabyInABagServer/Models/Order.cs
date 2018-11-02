@@ -30,5 +30,5 @@ namespace BabyInABagServer.Models
 
         public virtual ICollection<Product> Products { get; set; }
     }
-    public enum Order_Status {Submitted,Pending,Processing,InProgress,Completed,Rejected,Refunded}
+    public enum Order_Status {Submitted,Pending,Processing,Ongoing,Completed,Rejected,Refunded}
 }

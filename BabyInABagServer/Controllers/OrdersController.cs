@@ -210,6 +210,7 @@ namespace BabyInABagServer.Controllers
             //POST Response to PayPal with TX token, pull Order Response for SUCCESS or FAIL payment
             var getData = new GetPayPalData();
             string response = getData.GetPayPalResponse(Request.QueryString["tx"]);
+            List<Product> activeCart = new List<Product>(); ;
 
             Regex payment_success_rgx = new Regex(@"SUCCESS");
             if(payment_success_rgx.Match(response).ToString().Equals("SUCCESS"))
@@ -222,14 +223,16 @@ namespace BabyInABagServer.Controllers
                 Regex address_country_rgx = new Regex(@"(?<=address_country=).*?(?=\s)");
                 Regex address_state_rgx = new Regex(@"(?<=address_state=).*?(?=\s)");
                 Regex address_zip_rgx = new Regex(@"(?<=address_zip=).*?(?=\s)");
+                Regex payment_gross_rgx = new Regex(@"(?<=payment_gross=).*?(?=\s)");
 
-               //Parsed Fields being Decoded
+                //Parsed Fields being Decoded
                 string address_street_decoded = HttpUtility.UrlDecode(address_street_rgx.Match(response).ToString());
                 string address_name_decoded = HttpUtility.UrlDecode(address_name_rgx.Match(response).ToString());
                 string address_city_decoded = HttpUtility.UrlDecode(address_city_rgx.Match(response).ToString());
                 string address_country_decoded = HttpUtility.UrlDecode(address_country_rgx.Match(response).ToString());
                 string address_state_decoded = HttpUtility.UrlDecode(address_state_rgx.Match(response).ToString());
                 string address_zip_decoded = HttpUtility.UrlDecode(address_zip_rgx.Match(response).ToString());
+                string payment_gross_decoded = HttpUtility.UrlDecode(payment_gross_rgx.Match(response).ToString());
 
                 String shipping_address = address_street_decoded + "\n" +
                                           address_city_decoded + ", "  + 
@@ -240,21 +243,19 @@ namespace BabyInABagServer.Controllers
                 Order order = new Order();
                 order.Shipping_Address = shipping_address;
                 order.Full_Name = address_name_decoded;
+                order.Order_Total = Convert.ToDecimal(payment_gross_decoded);
 
                 Create(order);
 
-                ViewBag.status_message = "Your Payment was Successful!";
-                ViewBag.encoded_response = response;
-                ViewBag.decoded_response = HttpUtility.UrlDecode(response).ToString();
-                ViewBag.name = address_name_decoded;
+                activeCart = getCartProducts();
 
             }
             else
             {
-                ViewBag.status_message = "Your Payment didnt go through!";
+                
             }
 
-            return View();
+            return View(activeCart);
         }
 
     }

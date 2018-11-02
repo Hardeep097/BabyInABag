@@ -1,18 +1,13 @@
-﻿@using System.Configuration
+﻿@using BabyInABagServer.Models
+@using System.Configuration
+@model IEnumerable<Product>
 @{
     ViewBag.Title = "GetPayPalData";
 }
 
-<h2>Message: @ViewBag.status_message</h2>
-<h1>Name: @ViewBag.name</h1>
-
-<h2>Encoded Response</h2>
-@ViewBag.encoded_response
-
+<h2 style="text-align:center;">Thank you for your Payment!</h2>
+<div style="text-align:center">
+    <img src="~/images/checkmark_success.gif" />
+</div>
 <hr />
-
-<h2>Decoded Response</h2>
-@ViewBag.decoded_response
-
-
 

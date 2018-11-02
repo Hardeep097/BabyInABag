@@ -237,6 +237,7 @@
     <Content Include="images\bluewhiteb.jpg" />
     <Content Include="images\bubblesprite.jpg" />
     <Content Include="images\captcha.png" />
+    <Content Include="images\checkmark_success.gif" />
     <Content Include="images\fivebaggy.jpg" />
     <Content Include="images\graph.jpg" />
     <Content Include="images\graph3.jpg" />
