@@ -56,9 +56,10 @@
         <input type="hidden" name="@Url.Content("amount_" + i)" value="@item.Product_Price" />
         <input type="hidden" name="@Url.Content("quantity_" + i)" value="@item.Quantity" />
         i++;
-        
+
     }
     <div>
-        <input type="submit" value="Pay Now" />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="4" height="4">
     </div>
 </form>
