@@ -12,34 +12,44 @@
 </div>
 @{
     int i = 1;
-    double subtotal = (double)ViewBag.Subtotalprice;
+    
 }
 
 <!--        product 1-->
 @foreach (var item in Model)
 {
-    <div id="productDiv" class="w3-panel w3-border w3-round-xlarge" style="width: 70%">
+<div id="productDiv" class="w3-panel w3-border w3-round-xlarge" style="width: 70%">
 
-        <div class="w3-row">
+    <div class="w3-row">
 
-            <div class="w3-col w3-container m4 l3 ">
-                <img id="image1" src="@item.Product_Image" alt="@item.Product_Image">
+        <div class="w3-col w3-container m4 l3 ">
+            <img id="image1" src="@item.Product_Image" alt="@item.Product_Image">
+        </div>
+        <div class="w3-col w3-container m8 l9">
+            <h2>@Html.DisplayFor(modelItem => item.Product_Name)</h2>
+
+            <h4 class="details"><b>Details</b></h4>
+            <div class="description">
+                <p><b>Quantity:</b> @Html.DisplayFor(modelItem => item.Quantity) </p>
+                @if (item.AdditionalRequirements != null)
+                {
+                    <p><b>Additional Requirements:</b> @Html.DisplayFor(modelItem => item.AdditionalRequirements) </p>
+                }
+
             </div>
-            <div class="w3-col w3-container m8 l9">
-                <h2>@Html.DisplayFor(modelItem => item.Product_Name)</h2>
-
-
-                <div id="pright">
-                    <h4 id="cprice">$@Html.DisplayFor(modelItem => item.Product_Price)</h4>
-                </div>
+            <div id="pright">
+                <h4 id="cprice">$@Html.DisplayFor(modelItem => item.Product_Price)</h4>
             </div>
+
+            <br />
         </div>
     </div>
+</div>
 }
 
 <div style="margin-left:15%; margin-top: 3%;">
-    <div>
-        <p><b>Subtotal:</b> $@subtotal</p>
+    <div style="">
+        <p>@ViewBag.Subtotal</p>
     </div>
 </div>
 
@@ -58,7 +68,7 @@
         i++;
 
     }
-    <div>
+    <div style="text-align:center">
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="4" height="4">
     </div>

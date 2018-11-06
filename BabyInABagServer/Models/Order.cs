@@ -10,16 +10,24 @@ namespace BabyInABagServer.Models
     public class Order
     {
         [Key]
-        [Display(Name = "Order Number")]
+        [Display(Name = "Order Id")]
         public int Order_Id { get; set; }
+
+        [Display(Name ="Order Number")]
+        public string Order_Number { get; set; }
+    
         [Display(Name = "Order Placed")]
         public System.DateTime Order_Date_Placed { get; set; }
+
         [Display(Name = "Order Status")]
         public Order_Status Order_Status { get; set; }
+
         [Display(Name = "Order Total")]
         public decimal Order_Total { get; set; }
+
         [Display(Name = "Full Name")]
         public string Full_Name { get; set; }
+
         [Display(Name = "Shipping Address")]
         public string Shipping_Address { get; set; }
 

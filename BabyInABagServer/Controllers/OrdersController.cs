@@ -13,6 +13,8 @@ using BabyInABagServer.Services;
 
 namespace BabyInABagServer.Controllers
 {
+
+
     public class OrdersController : Controller
     {
         private Context db = new Context();
@@ -95,16 +97,18 @@ namespace BabyInABagServer.Controllers
                         {
                             products[c].Quantity = currentCart[d].Quantity;
                             activeCart.Add(products[c]);
-                            subtotalPrice += products[c].Product_Price;
-                            subtotalAmount++;
+
+                            for (int i = 0; i < products[c].Quantity; i++)
+                            {
+                                subtotalPrice += products[c].Product_Price;
+                                subtotalAmount++;
+
+                            }
+
                         }
                     }
                 }
                 ViewBag.Subtotal = "Subtotal (" + subtotalAmount + " item): CDN$ " + subtotalPrice;
-                ViewBag.Subtotalprice = subtotalPrice;
-
-               // Create(activeCart);
-
                 return View(activeCart);
             }
             return View();
@@ -206,6 +210,13 @@ namespace BabyInABagServer.Controllers
             base.Dispose(disposing);
         }
 
+        public string GenerateOrderNumber()
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         public ActionResult GetPayPalData()
         {
             //POST Response to PayPal with TX token, pull Order Response for SUCCESS or FAIL payment
@@ -239,15 +250,18 @@ namespace BabyInABagServer.Controllers
                                           address_country_decoded + ", " + 
                                           address_zip_decoded;
 
+
                 Order order = new Order
                 {
                     Shipping_Address = shipping_address,
                     Full_Name = address_name_decoded,
-                    Order_Total = Convert.ToDecimal(payment_gross_decoded)
-                };
+                    Order_Total = Convert.ToDecimal(payment_gross_decoded),
+                    Order_Number = GenerateOrderNumber()
+                 };
 
                 Create(order);
 
+                ViewBag.OrderNumber = order.Order_Number;
                 ViewBag.status_message = "Your Payment was Successful!";
             }
             else
@@ -256,5 +270,9 @@ namespace BabyInABagServer.Controllers
             }
             return View();
         }
+
+       
+        
+
     }
 }

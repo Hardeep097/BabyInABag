@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "GetPayPalData";
 }
-
-<h2>@ViewBag.status_message</h2>
-
-<h2 style="text-align:center;">Thank you for your Payment!</h2>
 <div style="text-align:center">
+    <h2 style="text-align:center;">Thank you for your Payment!</h2>
     <img src="~/images/checkmark_success.gif" />
+    <hr />
+    <h2><b>Your order number is:</b></h2><p>@ViewBag.OrderNumber</p>
+
+
+    <p>To view your order, please @Html.ActionLink("Click Here", "RemoveFromCart", "Cart", new { }, new { style = "text-decoration:underline; color: blue;" })</p>
 </div>
-<hr />
 
 
