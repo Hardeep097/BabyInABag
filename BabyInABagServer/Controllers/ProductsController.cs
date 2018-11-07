@@ -74,6 +74,7 @@ namespace BabyInABagServer.Controllers
         [HttpPost]
         public ActionResult CustomizeProduct(ProductCategory pcat, FormCollection frm)
         {
+            //Product Creataed out of Customize product page
             Product product = new Product
             {
                 Product_Name = "Custom: " + pcat.Product_Category,
