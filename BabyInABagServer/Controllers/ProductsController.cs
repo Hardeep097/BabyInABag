@@ -83,7 +83,8 @@ namespace BabyInABagServer.Controllers
                 Active = false,
                 Knit_Type = frm["knit"],
                 Color = frm["color"],
-                Product_Image = pcat.Default_Image
+                Product_Image = pcat.Default_Image,
+                Quantity = Int32.Parse(frm["quantity"])
             };
             if (frm["additionalRequirements"] != "")
             {
@@ -96,8 +97,8 @@ namespace BabyInABagServer.Controllers
                 db.SaveChanges();
             }
 
-
-            return RedirectToAction("AddToCart", new { id = product.Product_Id });
+            AddToCart(null, product.Product_Id, product.Quantity);
+            return RedirectToAction("Cart","Cart",null);
         }
 
         // GET: Products/Edit/5
@@ -185,11 +186,24 @@ namespace BabyInABagServer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddToCart(FormCollection frm)
+        public ActionResult AddToCart(FormCollection frm, int? product_id, int? product_quan)
         {
-            //Grab Product_ID and Quantity from FormCollection
-            int id = Int32.Parse(frm["pid"]);
-            int quan = Int32.Parse(frm["quantity"]);
+
+            int id;
+            int quan;
+
+            if (product_id == null)
+            {
+                //Grab Product_ID and Quantity from FormCollection
+                id = Int32.Parse(frm["pid"]);
+                quan = Int32.Parse(frm["quantity"]);
+            }
+            else
+            {
+                id = (int)product_id;
+                quan =(int) product_quan;
+            }
+            
 
             //Check if Session Username is Empty, Redirect to Login Page if Empty
             if (Session["username"] == null) { return RedirectToAction("Login", "Login", null); }
@@ -231,7 +245,6 @@ namespace BabyInABagServer.Controllers
                 Session["cart"] = cart;
                 return RedirectToAction("Cart", "Cart", null);
             }
-            return RedirectToAction("Cart", "Cart", null);
         }
 
     }
