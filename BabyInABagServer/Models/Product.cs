@@ -22,12 +22,10 @@ namespace BabyInABagServer.Models
         public string Product_Image { get; set; }
         public bool Active { get; set; }
         public int Quantity { get; set; }
-       
         [Display(Name = "Category")]
         public int Product_Category_Id { get; set; }
         public string Knit_Type { get; set; }
         public string Color { get; set; }
-
         public string AdditionalRequirements { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }

@@ -27,21 +27,6 @@ namespace BabyInABagServer.Controllers
             return View(db.Products.ToList());
         }
 
-        //// GET: Products/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Product product = db.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(product);
-        //}
-
         // GET: Products/Create
         public ActionResult Create()
         {
@@ -49,8 +34,6 @@ namespace BabyInABagServer.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Product_Id,Product_Name,Product_Price,Product_Description,Product_Image")] Product product)
@@ -84,10 +67,10 @@ namespace BabyInABagServer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ProductCategory pc = db.ProductCategories.Find(id);
-            
+
             return View(pc);
         }
-        
+
         [HttpPost]
         public ActionResult CustomizeProduct(ProductCategory pcat, FormCollection frm)
         {
@@ -139,13 +122,11 @@ namespace BabyInABagServer.Controllers
             {
                 ViewBag.data = categories;
             }
-            
+
             return View(product);
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Product_Id,Product_Name,Product_Price,Product_Description,Product_Image,Active,Size,Product_Category_Id,ImageFile")] Product product)
@@ -191,31 +172,6 @@ namespace BabyInABagServer.Controllers
             return View(product);
         }
 
-        //// GET: Products/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Product product = db.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(product);
-        //}
-
-        //// POST: Products/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Product product = db.Products.Find(id);
-        //    db.Products.Remove(product);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -231,37 +187,52 @@ namespace BabyInABagServer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddToCart(FormCollection frm)
         {
+            //Grab Product_ID and Quantity from FormCollection
             int id = Int32.Parse(frm["pid"]);
             int quan = Int32.Parse(frm["quantity"]);
-            
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
 
-            if(Session["username"] == null)
+            //Check if Session Username is Empty, Redirect to Login Page if Empty
+            if (Session["username"] == null) { return RedirectToAction("Login", "Login", null); }
+
+            //Check if the Temporary Cart is Empty, If YES do Below
+            if (TempData["cart"] == null)
             {
-                return RedirectToAction("Login","Login", null);
+                //Create CartItem containing the Product_Id and Quantity
+                CartItem item = new CartItem((int)id, (int)quan);
+                //Add the Cart Item to the Cart
+                cart.Add(item);
+                //Add the Cart to the Temporary Data
+                TempData["cart"] = cart;
+                //Add the Cart to the Session Data
+                Session["cart"] = cart;
+                //Redirect  to Cart Page after Product has been added
+                return RedirectToAction("Cart", "Cart", null);
             }
+            //If Temporary Cart is not empty
             else
             {
-                if (TempData["cart"] == null)
+                //Create a Temp Cart to hold products currently in session
+                List<CartItem> tempCart = TempData["cart"] as List<CartItem>;
+                //Loop through the Temp cart that was just created
+                for (int i = 0; i < tempCart.Count; i++)
                 {
-                    
-                    CartItem item = new CartItem((int)id, (int)quan);
-                    cart.Add(item);
-                    TempData["cart"] = cart;
-                    Session["cart"] = cart;
+                    //If the Temp cart at [i]'s Product ID is equal to the Product_ID passed from the form
+                    if (tempCart[i].ProductID == id)
+                    {
+                        tempCart[i].Quantity += quan;
+                        cart = tempCart;
+                        Session["cart"] = cart;
+                        return RedirectToAction("Cart", "Cart", null);
+                    }
                 }
-                else
-                {
-                    CartItem item = new CartItem((int)id, (int)quan);
-                    cart = TempData["cart"] as List<CartItem>;
-                    cart.Add(item);
-                    Session["cart"] = cart;
-                }
+                CartItem item = new CartItem((int)id, (int)quan);
+                cart = TempData["cart"] as List<CartItem>;
+                cart.Add(item);
+                Session["cart"] = cart;
+                return RedirectToAction("Cart", "Cart", null);
             }
-            return RedirectToAction("Cart","Cart",null);
+            return RedirectToAction("Cart", "Cart", null);
         }
+
     }
 }
